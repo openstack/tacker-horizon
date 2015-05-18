@@ -42,7 +42,18 @@ class VNFCatalogTab(tabs.TableTab):
                 print "VNFD name " + vnfd['name']
                 print "VNFD id " + vnfd['id']
                 print "VNFD desc " + vnfd['description']
-                item = VNFCatalogItem(vnfd['name'], vnfd['description'], 'TEMP-SERVICE-LIST', vnfd['id'])
+                services = vnfd['service_types']
+                print "VNFD Services: " + str(services)
+                vnfd_services =[]
+                for s in services:
+                    print "Serv:" + str(s)
+                    if s['service_type'] != 'vnfd':
+                        vnfd_services.append(s['service_type'])
+                print "VNFDService: " + str(vnfd_services)
+                vnfds_services_string = ""
+                if len(vnfd_services) > 0:
+                    vnfds_services_string = ', '.join([str(item) for item in vnfd_services])
+                item = VNFCatalogItem(vnfd['name'], vnfd['description'], vnfds_services_string, vnfd['id'])
                 instances.append(item)
             print "Instances: " + str(instances)
             return instances
