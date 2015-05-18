@@ -36,14 +36,14 @@ class AddServiceView(forms.ModalFormView):
     submit_label = _("Deploy VNF")
     submit_url = "horizon:nfv:vnfmanager:addservice"
 
-    @memoized.memoized_method
-    def get_object(self):
-        try:
-            return api.nova.server_get(self.request,
-                                       self.kwargs["instance_id"])
-        except Exception:
-            exceptions.handle(self.request,
-                              _("Unable to retrieve instance."))
+    #@memoized.memoized_method
+    #def get_object(self):
+    #    try:
+    #        return api.nova.server_get(self.request,
+    #                                   self.kwargs["instance_id"])
+    #    except Exception:
+    #        exceptions.handle(self.request,
+    #                          _("Unable to retrieve instance."))
 
     def get_initial(self):
         # return {"instance_id": self.kwargs["instance_id"]}

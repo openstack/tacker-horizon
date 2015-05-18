@@ -1,19 +1,11 @@
 from django.utils.translation import ugettext_lazy as _
-import uuid
 from horizon import exceptions
 from horizon import tabs
 
-from openstack_dashboard import api
 from openstack_dashboard.dashboards.nfv.vnfmanager import tables
-
-
-class VNFManagerItem(object):
-    def __init__(self, name, description, vnfs, status):
-        self.id = uuid.uuid4()
-        self.name = name
-        self.description = description
-        self.vnfs = vnfs
-        self.status = status
+from openstack_dashboard import api
+from openstack_dashboard.dashboards.nfv.vnfmanager.tables import VNFManagerItem
+from openstack_dashboard.dashboards.nfv.vnfmanager.tables import VNFManagerItemList
 
 
 class VNFManagerTab(tabs.TableTab):
@@ -35,10 +27,13 @@ class VNFManagerTab(tabs.TableTab):
             #    self.request,
             #    search_opts={'marker': marker, 'paginate': True})
             self._has_more = True
-            v1 = VNFManagerItem("node-SJ-Site-1", "ACME SJ-CA-site-1", "VNF1, VNF2, VNF2", "Active")
-            v2 = VNFManagerItem("node-SJ-Site-2", "ACME SJ-CA-site-2", "VNF1, VNF2", "Active")
-            instances = [v1,v2]
-            return instances
+            VNFManagerItemList.clear_list()
+            vnfs = api.tacker.vnf_list(self.request)
+            print "VNFs: " + str(vnfs)
+            for vnf in vnfs:
+                obj = VNFManagerItem(vnf['name'],'VNF Desc 1','vnfs-services','STATUS_UNUSED', vnf['status'], vnf['id'])
+                VNFManagerItemList.add_item(obj)
+            return VNFManagerItemList.VNFLIST_P
         except Exception:
             self._has_more = False
             error_message = _('Unable to get instances')

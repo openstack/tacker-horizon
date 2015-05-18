@@ -22,7 +22,8 @@ class VNFCatalogTable(tables.DataTable):
                            verbose_name=_("Description"))
     services = tables.Column('services', \
                          verbose_name=_("Services"))
-
+    id = tables.Column('id', \
+                         verbose_name=_("Catalog Id"))
 
     class Meta:
         name = "vnfcatalog"

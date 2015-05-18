@@ -10,8 +10,8 @@ from openstack_dashboard.dashboards.nfv.vnfcatalog import tables
 
 
 class VNFCatalogItem(object):
-    def __init__(self, name, description, services):
-        self.id = uuid.uuid4()
+    def __init__(self, name, description, services, vnfd_id):
+        self.id = vnfd_id
         self.name = name
         self.description = description
         self.services = services
@@ -33,12 +33,18 @@ class VNFCatalogTab(tabs.TableTab):
             #            tables.VNFCatalogTable._meta.pagination_param, None)
 
             self._has_more = False
-            v1 = VNFCatalogItem("Vyatta vRouter", "Multi-service VNF", "NAT,Firewall,VPN")
-            v2 = VNFCatalogItem("Palo Alto", "Firewall VNF", "Firewall")
-            v3 = VNFCatalogItem("F5 Networks","Load Balancer","")
-
-            instances = [v1, v2, v3]
-
+            instances = []
+            print "VNFD list API"
+            vnfds = api.tacker.vnfd_list(self.request)
+            print "VNFDs: " + str(vnfds)
+            for vnfd in vnfds:
+                print "VNFD entry " + str(vnfd)
+                print "VNFD name " + vnfd['name']
+                print "VNFD id " + vnfd['id']
+                print "VNFD desc " + vnfd['description']
+                item = VNFCatalogItem(vnfd['name'], vnfd['description'], 'TEMP-SERVICE-LIST', vnfd['id'])
+                instances.append(item)
+            print "Instances: " + str(instances)
             return instances
         except Exception:
             self._has_more = False
