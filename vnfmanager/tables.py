@@ -21,9 +21,9 @@ class VNFManagerItemList():
     VNFLIST_P = []
 
     @classmethod
-    def get_obj_given_stack_id(cls, stack_id):
+    def get_obj_given_stack_id(cls, vnf_id):
         for obj in cls.VNFLIST_P:
-            if obj.id == stack_id:
+            if obj.id == vnf_id:
                 return obj
 
     @classmethod
@@ -56,6 +56,33 @@ class StacksUpdateRow(tables.Row):
             item = VNFManagerItemList.get_obj_given_stack_id(stack_id)
             item.status = stack.status
             item.stack_status = stack.stack_status
+            return item
+        except Http404:
+            raise
+        except Exception as e:
+            messages.error(request, e)
+            raise
+
+
+class VNFUpdateRow(tables.Row):
+    ajax = True
+
+    def can_be_selected(self, datum):
+        return datum.status != 'DELETE_COMPLETE'
+
+    def get_data(self, request, vnf_id):
+        try:
+            #stack = api.heat.stack_get(request, stack_id)
+            #if stack.stack_status == 'DELETE_COMPLETE':
+                # returning 404 to the ajax call removes the
+                # row from the table on the ui
+            #    raise Http404
+            vnf_instance = api.tacker.get_vnf(request, vnf_id)
+            vnf = vnf_instance['vnf']
+            print "VNF row get_data: " + str(vnf_id)
+            item = VNFManagerItemList.get_obj_given_stack_id(vnf_id)
+            item.status = vnf['status']
+            item.stack_status = vnf['status']
             return item
         except Http404:
             raise
@@ -157,5 +184,5 @@ class VNFManagerTable(tables.DataTable):
         name = "vnfmanager"
         verbose_name = _("VNFManager")
         status_columns = ["status",]
-        #row_class = StacksUpdateRow
+        row_class = VNFUpdateRow
         table_actions = (AddServicesLink, MyFilterAction,)

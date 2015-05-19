@@ -31,7 +31,15 @@ class VNFManagerTab(tabs.TableTab):
             vnfs = api.tacker.vnf_list(self.request)
             print "VNFs: " + str(vnfs)
             for vnf in vnfs:
-                obj = VNFManagerItem(vnf['name'],'VNF Desc 1','vnfs-services','STATUS_UNUSED', vnf['status'], vnf['id'])
+                vnf_services_str = ""
+                if len(vnf['services']) > 0:
+                    vnf_services_str = ', '.join([str(item) for item in vnf['service']])
+                obj = VNFManagerItem(vnf['name'],
+                                     'VNF Desc 1',
+                                     vnf_services_str,
+                                     'STATUS_UNUSED',
+                                     vnf['status'],
+                                     vnf['id'])
                 VNFManagerItemList.add_item(obj)
             return VNFManagerItemList.VNFLIST_P
         except Exception:
