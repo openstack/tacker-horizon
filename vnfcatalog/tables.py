@@ -12,16 +12,16 @@ class DeleteVNFLink(policy.PolicyTargetMixin, tables.DeleteAction):
     @staticmethod
     def action_present(count):
         return ungettext_lazy(
-            u"Delete VNF Catalog",
-            u"Delete VNF Catalog",
+            u"Delete VNF",
+            u"Delete VNF",
             count
         )
 
     @staticmethod
     def action_past(count):
         return ungettext_lazy(
-            u"Delete VNF Catalog",
-            u"Delete VNF Catalog",
+            u"Delete VNF",
+            u"Delete VNF",
             count
         )
 

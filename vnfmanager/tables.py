@@ -101,7 +101,7 @@ class DeleteServicesLink(policy.PolicyTargetMixin, tables.DeleteAction):
     def action_present(count):
         return ungettext_lazy(
             u"Terminate VNF",
-            u"Terminate VNFs",
+            u"Terminate VNF",
             count
         )
 
@@ -109,7 +109,7 @@ class DeleteServicesLink(policy.PolicyTargetMixin, tables.DeleteAction):
     def action_past(count):
         return ungettext_lazy(
             u"Terminate VNF",
-            u"Terminate VNFs",
+            u"Terminate VNF",
             count
         )
 
