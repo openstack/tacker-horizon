@@ -35,7 +35,7 @@ class VNFManagerTab(tabs.TableTab):
                 if len(vnf['services']) > 0:
                     vnf_services_str = ', '.join([str(item) for item in vnf['service']])
                 obj = VNFManagerItem(vnf['name'],
-                                     'VNF Desc 1',
+                                     vnf['description'],
                                      vnf_services_str,
                                      'STATUS_UNUSED',
                                      vnf['status'],
