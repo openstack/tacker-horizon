@@ -42,7 +42,7 @@ class VNFManagerTab(tabs.TableTab):
                 obj = VNFManagerItem(vnf['name'],
                                      vnf_desc_str,
                                      vnf_services_str,
-                                     'STATUS_UNUSED',
+                                     vnf['status'],
                                      vnf['status'],
                                      vnf['id'])
                 VNFManagerItemList.add_item(obj)
