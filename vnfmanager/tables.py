@@ -1,11 +1,13 @@
 from django.http import Http404
 from django.utils.translation import pgettext_lazy
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ungettext_lazy
 
 from horizon import messages
 from horizon import tables
 
 from openstack_dashboard import api
+from openstack_dashboard import policy
 
 class VNFManagerItem(object):
     def __init__(self, name, description, vnfs, status, stack_status, stack_id):
@@ -94,6 +96,22 @@ class VNFUpdateRow(tables.Row):
             messages.error(request, e)
             raise
 
+class DeleteServicesLink(policy.PolicyTargetMixin, tables.DeleteAction):
+    @staticmethod
+    def action_present(count):
+        return ungettext_lazy(
+            u"Terminate VNF",
+            u"Terminate VNFs",
+            count
+        )
+
+    @staticmethod
+    def action_past(count):
+        return ungettext_lazy(
+            u"Terminate VNF",
+            u"Terminate VNFs",
+            count
+        )
 
 class AddServicesLink(tables.LinkAction):
     name = "addservice"
@@ -189,4 +207,4 @@ class VNFManagerTable(tables.DataTable):
         verbose_name = _("VNFManager")
         status_columns = ["status",]
         row_class = VNFUpdateRow
-        table_actions = (AddServicesLink, MyFilterAction,)
+        table_actions = (AddServicesLink, DeleteServicesLink, MyFilterAction,)

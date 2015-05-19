@@ -1,11 +1,29 @@
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ungettext_lazy
 
 from horizon import tables
 
+from openstack_dashboard import policy
 
 class MyFilterAction(tables.FilterAction):
     name = "myfilter"
 
+class DeleteVNFLink(policy.PolicyTargetMixin, tables.DeleteAction):
+    @staticmethod
+    def action_present(count):
+        return ungettext_lazy(
+            u"Delete VNF Catalog",
+            u"Delete VNF Catalog",
+            count
+        )
+
+    @staticmethod
+    def action_past(count):
+        return ungettext_lazy(
+            u"Delete VNF Catalog",
+            u"Delete VNF Catalog",
+            count
+        )
 
 class OnBoardVNFLink(tables.LinkAction):
     name = "onboardvnf"
@@ -28,4 +46,4 @@ class VNFCatalogTable(tables.DataTable):
     class Meta:
         name = "vnfcatalog"
         verbose_name = _("VNFCatalog")
-        table_actions = (OnBoardVNFLink, MyFilterAction,)
+        table_actions = (OnBoardVNFLink, DeleteVNFLink, MyFilterAction,)
