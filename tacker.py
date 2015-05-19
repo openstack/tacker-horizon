@@ -79,3 +79,10 @@ def create_vnf(request, vnf_arg, **params):
     vnf_instance = tackerclient(request).create_vnf(body=vnf_arg)
     print "API.Tacker VNF Instance: " + str(vnf_instance)
     return vnf_instance
+
+
+def get_vnf(request, vnf_id):
+    LOG.debug("vnf_get(): vnf_id=%s", str(vnf_id))
+    vnf_instance = tackerclient(request).show_vnf(vnf_id)
+    print "API.Tacker Get VNF Instance: " + str(vnf_instance)
+    return vnf_instance
