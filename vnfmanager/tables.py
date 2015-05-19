@@ -77,12 +77,16 @@ class VNFUpdateRow(tables.Row):
                 # returning 404 to the ajax call removes the
                 # row from the table on the ui
             #    raise Http404
-            vnf_instance = api.tacker.get_vnf(request, vnf_id)
-            vnf = vnf_instance['vnf']
-            print "VNF row get_data: " + str(vnf_id)
             item = VNFManagerItemList.get_obj_given_stack_id(vnf_id)
-            item.status = vnf['status']
-            item.stack_status = vnf['status']
+            vnf_instance = api.tacker.get_vnf(request, vnf_id)
+            if vnf_instance and item:
+                try:
+                    vnf = vnf_instance['vnf']
+                    print "VNF row get_data: " + str(vnf_id)
+                    item.status = vnf['status']
+                    item.stack_status = vnf['status']
+                except KeyError:
+                    pass
             return item
         except Http404:
             raise
