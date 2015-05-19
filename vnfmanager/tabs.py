@@ -35,8 +35,12 @@ class VNFManagerTab(tabs.TableTab):
                     vnf_services_str = vnf['attributes']['service_type']
                 except KeyError:
                     vnf_services_str = ""
+                try:
+                    vnf_desc_str = vnf['description']
+                except KeyError:
+                    vnf_desc_str = ""
                 obj = VNFManagerItem(vnf['name'],
-                                     vnf['description'],
+                                     vnf_desc_str,
                                      vnf_services_str,
                                      'STATUS_UNUSED',
                                      vnf['status'],
