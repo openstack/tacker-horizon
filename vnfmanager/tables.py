@@ -123,7 +123,7 @@ class AddServicesLink(tables.LinkAction):
 
 class VNFManagerTable(tables.DataTable):
     STATUS_CHOICES = (
-        ("Complete", True),
+        ("ACTIVE", True),
         ("Failed", False),
     )
     STACK_STATUS_DISPLAY_CHOICES = (
