@@ -81,14 +81,44 @@ class VNFUpdateRow(tables.Row):
             #    raise Http404
             item = VNFManagerItemList.get_obj_given_stack_id(vnf_id)
             vnf_instance = api.tacker.get_vnf(request, vnf_id)
-            if vnf_instance and item:
-                try:
-                    vnf = vnf_instance['vnf']
-                    print "VNF row get_data: " + str(vnf_id)
-                    item.status = vnf['status']
-                    item.stack_status = vnf['status']
-                except KeyError:
-                    pass
+            print "VNF row get_data: " + str(vnf_id)
+
+            if not vnf_instance and not item:
+                # TODO - bail with error
+                return None
+
+            if not vnf_instance and item:
+                # API failure, just keep the current state
+                return item
+
+            vnf = vnf_instance['vnf']
+            try:
+                vnf_services_str = vnf['attributes']['service_type']
+            except KeyError:
+                vnf_services_str = ""
+            try:
+                vnf_desc_str = vnf['description']
+            except KeyError:
+                vnf_desc_str = ""
+
+            if not item:
+                # Add an item entry
+                print "VNF row - ITEM NOT FOUND"
+                item = VNFManagerItem(vnf['name'],
+                                     vnf_desc_str,
+                                     vnf_services_str,
+                                     vnf['status'],
+                                     vnf['status'],
+                                     vnf['id'])
+                #VNFManagerItemList.add_item(obj)
+            else:
+                print "VNF row set status: " + vnf['status']
+                print "VNF row set desc: " + vnf_desc_str
+                print "VNF row set services: " + vnf_services_str
+                item.description = vnf_desc_str
+                item.vnfs = vnf_services_str
+                item.status = vnf['status']
+                item.stack_status = vnf['status']
             return item
         except Http404:
             raise

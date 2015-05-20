@@ -29,7 +29,7 @@ class VNFManagerTab(tabs.TableTab):
             self._has_more = True
             VNFManagerItemList.clear_list()
             vnfs = api.tacker.vnf_list(self.request)
-            print "VNFs: " + str(vnfs)
+            print "VNF Listing: " + str(vnfs)
             for vnf in vnfs:
                 try:
                     vnf_services_str = vnf['attributes']['service_type']
@@ -39,6 +39,8 @@ class VNFManagerTab(tabs.TableTab):
                     vnf_desc_str = vnf['description']
                 except KeyError:
                     vnf_desc_str = ""
+
+                print "VNF Listing: name: {0}, desc{1}, service: {2}, status: {3}".format(vnf['name'], vnf_desc_str, vnf_services_str, vnf['status'])
                 obj = VNFManagerItem(vnf['name'],
                                      vnf_desc_str,
                                      vnf_services_str,
