@@ -8,7 +8,7 @@ Installation
 1. Install module
 
     ```
-    pip install tacker-horizon
+    sudo python setup.py install
     ```
 
 2. Copy files to Horizon tree
