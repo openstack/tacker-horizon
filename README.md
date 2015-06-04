@@ -14,7 +14,7 @@ Installation
 2. Copy files to Horizon tree
 
     ```
-    cp -r openstack_dashboard/* /opt/stack/horizon/openstack_dashboard/
+    cp openstack_dashboard_extensions/* /opt/stack/horizon/openstack_dashboard/enabled/
     ```
 
 More Information
