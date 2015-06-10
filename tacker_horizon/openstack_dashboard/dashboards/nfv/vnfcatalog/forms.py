@@ -21,7 +21,7 @@ from horizon import exceptions
 from horizon import forms
 from horizon import messages
 
-from openstack_dashboard import api
+from tacker_horizon.openstack_dashboard import api
 
 import yaml
 

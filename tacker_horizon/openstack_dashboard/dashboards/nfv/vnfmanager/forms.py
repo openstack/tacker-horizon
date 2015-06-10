@@ -19,9 +19,9 @@ from horizon import exceptions
 from horizon import forms
 from horizon import messages
 
-from openstack_dashboard import api
-from openstack_dashboard.dashboards.nfv.vnfmanager.tables import VNFManagerItem
-from openstack_dashboard.dashboards.nfv.vnfmanager.tables import VNFManagerItemList
+from tacker_horizon.openstack_dashboard import api
+from tacker_horizon.openstack_dashboard.dashboards.nfv.vnfmanager.tables import VNFManagerItem
+from tacker_horizon.openstack_dashboard.dashboards.nfv.vnfmanager.tables import VNFManagerItemList
 
 
 class AddService(forms.SelfHandlingForm):

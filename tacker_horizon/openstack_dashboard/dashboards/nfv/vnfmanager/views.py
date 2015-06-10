@@ -23,12 +23,12 @@ from horizon import forms
 
 from horizon.utils import memoized
 
-from openstack_dashboard import api
+from tacker_horizon.openstack_dashboard import api
 
-from openstack_dashboard.dashboards.nfv.vnfmanager \
+from tacker_horizon.openstack_dashboard.dashboards.nfv.vnfmanager \
     import forms as project_forms
 
-from openstack_dashboard.dashboards.nfv.vnfmanager \
+from tacker_horizon.openstack_dashboard.dashboards.nfv.vnfmanager \
     import tabs as nfv_tabs
 
 

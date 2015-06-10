@@ -17,10 +17,10 @@ from django.utils.translation import ugettext_lazy as _
 from horizon import exceptions
 from horizon import tabs
 
-from openstack_dashboard.dashboards.nfv.vnfmanager import tables
-from openstack_dashboard import api
-from openstack_dashboard.dashboards.nfv.vnfmanager.tables import VNFManagerItem
-from openstack_dashboard.dashboards.nfv.vnfmanager.tables import VNFManagerItemList
+from tacker_horizon.openstack_dashboard.dashboards.nfv.vnfmanager import tables
+from tacker_horizon.openstack_dashboard import api
+from tacker_horizon.openstack_dashboard.dashboards.nfv.vnfmanager.tables import VNFManagerItem
+from tacker_horizon.openstack_dashboard.dashboards.nfv.vnfmanager.tables import VNFManagerItemList
 
 
 class VNFManagerTab(tabs.TableTab):

@@ -21,7 +21,7 @@ from django.utils.translation import ungettext_lazy
 from horizon import messages
 from horizon import tables
 
-from openstack_dashboard import api
+from tacker_horizon.openstack_dashboard import api
 from openstack_dashboard import policy
 
 class VNFManagerItem(object):

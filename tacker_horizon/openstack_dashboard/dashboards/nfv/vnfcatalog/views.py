@@ -25,10 +25,10 @@ from horizon.utils import memoized
 
 from openstack_dashboard import api
 
-from openstack_dashboard.dashboards.nfv.vnfcatalog \
+from tacker_horizon.openstack_dashboard.dashboards.nfv.vnfcatalog \
     import tabs as nfv_tabs
 
-from openstack_dashboard.dashboards.nfv.vnfcatalog \
+from tacker_horizon.openstack_dashboard.dashboards.nfv.vnfcatalog \
     import forms as project_forms
 
 class IndexView(tabs.TabbedTableView):
