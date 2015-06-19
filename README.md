@@ -17,6 +17,12 @@ Installation
     cp openstack_dashboard_extensions/* /opt/stack/horizon/openstack_dashboard/enabled/
     ```
 
+3. Restart the apache webserver
+
+    ```
+    sudo service apache2 restart
+    ```
+
 More Information
 ----------------
 
