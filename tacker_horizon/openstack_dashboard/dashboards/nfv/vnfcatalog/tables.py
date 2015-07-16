@@ -19,6 +19,7 @@ from django.utils.translation import ungettext_lazy
 from horizon import tables
 
 from openstack_dashboard import policy
+from tacker_horizon.openstack_dashboard import api
 
 class MyFilterAction(tables.FilterAction):
     name = "myfilter"
@@ -28,7 +29,7 @@ class DeleteVNFLink(policy.PolicyTargetMixin, tables.DeleteAction):
     def action_present(count):
         return ungettext_lazy(
             u"Delete VNF",
-            u"Delete VNF",
+            u"Delete VNFs",
             count
         )
 
@@ -36,9 +37,12 @@ class DeleteVNFLink(policy.PolicyTargetMixin, tables.DeleteAction):
     def action_past(count):
         return ungettext_lazy(
             u"Delete VNF",
-            u"Delete VNF",
+            u"Delete VNFs",
             count
         )
+
+    def action(self, request, obj_id):
+        api.tacker.delete_vnfd(request,obj_id)
 
 class OnBoardVNFLink(tables.LinkAction):
     name = "onboardvnf"

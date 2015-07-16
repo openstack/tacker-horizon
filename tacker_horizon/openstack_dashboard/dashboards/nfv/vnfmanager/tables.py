@@ -21,8 +21,8 @@ from django.utils.translation import ungettext_lazy
 from horizon import messages
 from horizon import tables
 
-from tacker_horizon.openstack_dashboard import api
 from openstack_dashboard import policy
+from tacker_horizon.openstack_dashboard import api
 
 class VNFManagerItem(object):
     def __init__(self, name, description, vnfs, status, stack_status, stack_id):
@@ -146,7 +146,7 @@ class DeleteServicesLink(policy.PolicyTargetMixin, tables.DeleteAction):
     def action_present(count):
         return ungettext_lazy(
             u"Terminate VNF",
-            u"Terminate VNF",
+            u"Terminate VNFs",
             count
         )
 
@@ -154,9 +154,12 @@ class DeleteServicesLink(policy.PolicyTargetMixin, tables.DeleteAction):
     def action_past(count):
         return ungettext_lazy(
             u"Terminate VNF",
-            u"Terminate VNF",
+            u"Terminate VNFs",
             count
         )
+
+    def action(self, request, obj_id):
+        api.tacker.delete_vnf(request,obj_id)
 
 class AddServicesLink(tables.LinkAction):
     name = "addservice"

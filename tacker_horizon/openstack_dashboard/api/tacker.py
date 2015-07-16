@@ -83,3 +83,11 @@ def get_vnf(request, vnf_id):
     vnf_instance = tackerclient(request).show_vnf(vnf_id)
     print "API.Tacker Get VNF Instance: " + str(vnf_instance)
     return vnf_instance
+
+def delete_vnf(request, vnf_id):
+    LOG.debug("delete_vnf():vnf_id=%s",str(vnf_id))
+    tackerclient(request).delete_vnf(vnf_id)
+
+def delete_vnfd(request, vnfd_id):
+    LOG.debug("delete_vnfd():vnfd_id=%s",str(vnfd_id))
+    tackerclient(request).delete_vnfd(vnfd_id)
