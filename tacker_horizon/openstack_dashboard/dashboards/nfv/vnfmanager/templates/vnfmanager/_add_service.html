@@ -1,7 +1,13 @@
 {% extends "horizon/common/_modal_form.html" %}
 {% load i18n %}
 
+{% block form_attrs %}enctype="multipart/form-data"{% endblock %}
+
 {% block modal-body-right %}
     <h3>{% trans "Description:" %}</h3>
-    <p>{% trans "Deploys a VNF." %}</p>
+    <p>{% blocktrans %} Deploys a VNF.<br/>
+        If the VNFD template is parameterized,
+        upload a yaml file with values for those parmeters.<br/>
+        If the VNFD template is not parameterized, any
+        yaml file uploaded will be ignored. {% endblocktrans %}</p>
 {% endblock %}
