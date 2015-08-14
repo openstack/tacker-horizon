@@ -96,7 +96,6 @@ class VNFUpdateRow(tables.Row):
             #    raise Http404
             item = VNFManagerItemList.get_obj_given_stack_id(vnf_id)
             vnf_instance = api.tacker.get_vnf(request, vnf_id)
-            print "VNF row get_data: " + str(vnf_id)
 
             if not vnf_instance and not item:
                 # TODO - bail with error
@@ -118,7 +117,6 @@ class VNFUpdateRow(tables.Row):
 
             if not item:
                 # Add an item entry
-                print "VNF row - ITEM NOT FOUND"
                 item = VNFManagerItem(vnf['name'],
                                      vnf_desc_str,
                                      vnf_services_str,
@@ -127,9 +125,6 @@ class VNFUpdateRow(tables.Row):
                                      vnf['id'])
                 #VNFManagerItemList.add_item(obj)
             else:
-                print "VNF row set status: " + vnf['status']
-                print "VNF row set desc: " + vnf_desc_str
-                print "VNF row set services: " + vnf_services_str
                 item.description = vnf_desc_str
                 item.vnfs = vnf_services_str
                 item.status = vnf['status']

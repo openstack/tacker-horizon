@@ -53,35 +53,30 @@ def tackerclient(request):
 def vnf_list(request, **params):
     LOG.debug("vnf_list(): params=%s", params)
     vnfs = tackerclient(request).list_vnfs(**params).get('vnfs')
-    print "API.Tacker VNFs::" + str(vnfs)
     return vnfs
 
 
 def vnfd_list(request, **params):
     LOG.debug("vnfd_list(): params=%s", params)
     vnfds = tackerclient(request).list_vnfds(**params).get('vnfds')
-    print "API.Tacker VNFDs:" + str(vnfds)
     return vnfds
 
 
 def create_vnfd(request, tosca_body=None, **params):
     LOG.debug("create_vnfd(): params=%s", params)
     vnfd_instance = tackerclient(request).create_vnfd(body=tosca_body)
-    print "API.Tacker VNFD Instance: " + str(vnfd_instance)
     return vnfd_instance
 
 
 def create_vnf(request, vnf_arg, **params):
     LOG.debug("create_vnf(): vnf_arg=%s", str(vnf_arg))
     vnf_instance = tackerclient(request).create_vnf(body=vnf_arg)
-    print "API.Tacker VNF Instance: " + str(vnf_instance)
     return vnf_instance
 
 
 def get_vnf(request, vnf_id):
     LOG.debug("vnf_get(): vnf_id=%s", str(vnf_id))
     vnf_instance = tackerclient(request).show_vnf(vnf_id)
-    print "API.Tacker Get VNF Instance: " + str(vnf_instance)
     return vnf_instance
 
 def delete_vnf(request, vnf_id):
