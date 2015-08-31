@@ -95,7 +95,8 @@ class AddService(forms.SelfHandlingForm):
             vnf_name = data['vnf_name']
             vnfd_id = data['vnfd_id']
             vnf_arg = {'vnf': {'vnfd_id': vnfd_id, 'name':  vnf_name,
-                               'param_values': data['param_values']}}
+                               'attributes': {'param_values': data[
+                                   'param_values']}}}
             api.tacker.create_vnf(request, vnf_arg)
             messages.success(request,
                              _('VNF %s has been created.') % vnf_name)
