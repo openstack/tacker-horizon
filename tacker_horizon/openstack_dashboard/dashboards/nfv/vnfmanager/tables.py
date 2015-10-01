@@ -167,7 +167,7 @@ class AddServicesLink(tables.LinkAction):
 class VNFManagerTable(tables.DataTable):
     STATUS_CHOICES = (
         ("ACTIVE", True),
-        ("Failed", False),
+        ("ERROR", False),
     )
     STACK_STATUS_DISPLAY_CHOICES = (
         ("init_in_progress", pgettext_lazy("current status of stack",

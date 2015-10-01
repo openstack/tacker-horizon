@@ -99,7 +99,7 @@ class AddService(forms.SelfHandlingForm):
                                    'param_values']}}}
             api.tacker.create_vnf(request, vnf_arg)
             messages.success(request,
-                             _('VNF %s has been created.') % vnf_name)
+                             _('VNF %s create operation initiated.') % vnf_name)
             return True
         except Exception as e:
             exceptions.handle(request,
