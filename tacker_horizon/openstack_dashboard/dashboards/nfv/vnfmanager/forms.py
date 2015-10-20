@@ -38,8 +38,8 @@ class AddService(forms.SelfHandlingForm):
             attrs={'class': 'switchable', 'data-slug': 'source'}))
 
     param_file = forms.FileField(
-        label=_("Parameter Value File"),
-        help_text=_("A local Parameter value file to upload."),
+        label=_('Parameter Value File'),
+        help_text=_('A local Parameter Value file to upload.'),
         widget=forms.FileInput(
             attrs={'class': 'switched', 'data-switch-on': 'source',
                    'data-source-file': _('Parameter Value File')}),
@@ -51,6 +51,30 @@ class AddService(forms.SelfHandlingForm):
         widget=forms.widgets.Textarea(
             attrs={'class': 'switched', 'data-switch-on': 'source',
                    'data-source-raw': _('Parameter Values')}),
+        required=False)
+
+    config_type = forms.ChoiceField(
+        label=_('Configuration Value Source'),
+        required=False,
+        choices=[('file', _('File')),
+                 ('raw', _('Direct Input'))],
+        widget=forms.Select(
+            attrs={'class': 'switchable', 'data-slug': 'config'}))
+
+    config_file = forms.FileField(
+        label=_('Configuration Value File'),
+        help_text=_('VNF Configuration file with YAML formatted contents to upload.'),
+        widget=forms.FileInput(
+            attrs={'class': 'switched', 'data-switch-on': 'config',
+                   'data-config-file': _('Configuration Value File')}),
+        required=False)
+
+    config_input = forms.CharField(
+        label=_('Configuration Value YAML'),
+        help_text=_('YAML formatted VNF configuration text.'),
+        widget=forms.widgets.Textarea(
+            attrs={'class': 'switched', 'data-switch-on': 'config',
+                   'data-config-raw': _('Configuration Values')}),
         required=False)
 
     def __init__(self, request, *args, **kwargs):
@@ -82,11 +106,28 @@ class AddService(forms.SelfHandlingForm):
                 _("Please upload .yaml file only."))
 
         if param_file:
-            param_str = self.files['param_file'].read()
+            data['param_values'] = self.files['param_file'].read()
+        elif param_raw:
+            data['param_values'] = data['direct_input']
         else:
-            param_str = data['direct_input']
+            data['param_values'] = None
 
-        data['param_values'] = param_str
+        config_file = data.get('config_file', None)
+        config_raw = data.get('config_input', None)
+
+        if config_file and config_raw:
+            raise ValidationError(
+                _("Cannot specify both file and direct input."))
+
+        if config_file and not config_file.name.endswith('.yaml'):
+            raise ValidationError(_("Only .yaml file uploads supported"))
+
+        if config_file:
+            data['config_values'] = self.files['config_file'].read()
+        elif config_raw:
+            data['config_values'] = data['config_input']
+        else:
+            data['config_values'] = None
 
         return data
 
@@ -96,7 +137,8 @@ class AddService(forms.SelfHandlingForm):
             vnfd_id = data['vnfd_id']
             vnf_arg = {'vnf': {'vnfd_id': vnfd_id, 'name':  vnf_name,
                                'attributes': {'param_values': data[
-                                   'param_values']}}}
+                                   'param_values'], 'config': data[
+                                   'config_values']}}}
             api.tacker.create_vnf(request, vnf_arg)
             messages.success(request,
                              _('VNF %s create operation initiated.') % vnf_name)
