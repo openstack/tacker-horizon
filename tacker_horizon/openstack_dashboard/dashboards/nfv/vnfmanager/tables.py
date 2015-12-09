@@ -27,9 +27,8 @@ from tackerclient.common.exceptions import NotFound
 
 
 class VNFManagerItem(object):
-
     def __init__(self, name, description, vnfs, vim, status,
-                 stack_status, stack_id):
+                 stack_status, stack_id, error_reason):
         self.name = name
         self.description = description
         self.vnfs = vnfs
@@ -37,6 +36,7 @@ class VNFManagerItem(object):
         self.status = status
         self.stack_status = stack_status
         self.id = stack_id
+        self.error_reason = error_reason
 
 
 class VNFManagerItemList(object):
@@ -124,7 +124,8 @@ class VNFUpdateRow(tables.Row):
                 # Add an item entry
                 item = VNFManagerItem(vnf['name'], vnf_desc_str,
                                       vnf_services_str, str(vim),
-                                      vnf['status'], vnf['status'], vnf['id'])
+                                      vnf['status'], vnf['status'], vnf['id'],
+                                      vnf['error_reason'])
             else:
                 item.description = vnf_desc_str
                 item.vnfs = vnf_services_str
@@ -249,6 +250,8 @@ class VNFManagerTable(tables.DataTable):
     stack_status = tables.Column("stack_status",
                                  verbose_name=_("Status"),
                                  display_choices=STACK_STATUS_DISPLAY_CHOICES)
+    error_reason = tables.Column("error_reason",
+                                 verbose_name=_("Error Reason"))
 
     class Meta(object):
         name = "vnfmanager"

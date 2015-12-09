@@ -61,7 +61,8 @@ class VNFManagerTab(tabs.TableTab):
                                      vim,
                                      vnf['status'],
                                      vnf['status'],
-                                     vnf['id'])
+                                     vnf['id'],
+                                     vnf['error_reason'])
                 VNFManagerItemList.add_item(obj)
             return VNFManagerItemList.VNFLIST_P
         except Exception:
