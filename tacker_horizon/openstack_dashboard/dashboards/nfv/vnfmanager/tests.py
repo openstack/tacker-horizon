@@ -13,7 +13,7 @@
 # under the License.
 
 
-from horizon.test import helpers as test
+from openstack_dashboard.test import helpers as test
 
 
 class VnfmanagerTests(test.TestCase):

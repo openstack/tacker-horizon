@@ -1,4 +1,4 @@
-# Copyright 2015 Brocade Communications System, Inc.
+# Copyright (C) 2015 Yahoo! Inc. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
 # not use this file except in compliance with the License. You may obtain
@@ -12,11 +12,12 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+from django.conf import urls
+from django.views import generic
 
-from openstack_dashboard.test import helpers as test
+import openstack_dashboard.urls
 
-
-class VnfcatalogTests(test.TestCase):
-    # Unit tests for vnfcatalog.
-    def test_me(self):
-        self.assertTrue(1 + 1 == 2)
+urlpatterns = urls.patterns(
+    '',
+    urls.url(r'', urls.include(openstack_dashboard.urls))
+)
