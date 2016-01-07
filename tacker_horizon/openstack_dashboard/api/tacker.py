@@ -45,7 +45,7 @@ def tackerclient(request):
     cacert = getattr(settings, 'OPENSTACK_SSL_CACERT', None)
     c = tacker_client.Client(token=request.user.token.id,
                              auth_url=base.url_for(request, 'identity'),
-                             endpoint_url=base.url_for(request, 'servicevm'),
+                             endpoint_url=base.url_for(request, 'nfv-orchestration'),
                              insecure=insecure, ca_cert=cacert)
     return c
 
