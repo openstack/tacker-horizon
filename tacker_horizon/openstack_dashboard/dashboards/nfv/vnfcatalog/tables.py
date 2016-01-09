@@ -57,6 +57,7 @@ class OnBoardVNFLink(tables.LinkAction):
 
 class VNFCatalogTable(tables.DataTable):
     name = tables.Column('name',
+                         link="horizon:nfv:vnfcatalog:detail",
                          verbose_name=_("Name"))
     description = tables.Column('description',
                                verbose_name=_("Description"))

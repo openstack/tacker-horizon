@@ -74,3 +74,18 @@ class VNFCatalogTabs(tabs.TabGroup):
     slug = "vnfcatalog_tabs"
     tabs = (VNFCatalogTab,)
     sticky = True
+
+
+class TemplateTab(tabs.Tab):
+    name = _("Template")
+    slug = "template"
+    template_name = ("nfv/vnfcatalog/template.html")
+
+    def get_context_data(self, request):
+        return {'vnfd': self.tab_group.kwargs['vnfd']}
+
+
+class VNFDDetailTabs(tabs.TabGroup):
+    slug = "VNFD_details"
+    tabs = (TemplateTab,)
+    sticky = True

@@ -72,6 +72,12 @@ def create_vnf(request, vnf_arg, **params):
     return vnf_instance
 
 
+def get_vnfd(request, vnfd_id):
+    LOG.debug("vnfd_get(): vnfd_id=%s", str(vnfd_id))
+    vnfd = tackerclient(request).show_vnfd(vnfd_id)
+    return vnfd
+
+
 def get_vnf(request, vnf_id):
     LOG.debug("vnf_get(): vnf_id=%s", str(vnf_id))
     vnf_instance = tackerclient(request).show_vnf(vnf_id)
