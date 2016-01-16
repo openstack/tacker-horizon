@@ -42,7 +42,7 @@ class DeleteVNFLink(policy.PolicyTargetMixin, tables.DeleteAction):
         )
 
     def action(self, request, obj_id):
-        api.tacker.delete_vnfd(request,obj_id)
+        api.tacker.delete_vnfd(request, obj_id)
 
 class OnBoardVNFLink(tables.LinkAction):
     name = "onboardvnf"

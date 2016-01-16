@@ -52,7 +52,7 @@ class VNFCatalogTab(tabs.TableTab):
             vnfds = api.tacker.vnfd_list(self.request)
             for vnfd in vnfds:
                 services = vnfd['service_types']
-                vnfd_services =[]
+                vnfd_services = []
                 for s in services:
                     if s['service_type'] != 'vnfd':
                         vnfd_services.append(s['service_type'])
