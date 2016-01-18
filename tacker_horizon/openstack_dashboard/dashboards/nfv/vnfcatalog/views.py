@@ -17,9 +17,9 @@ from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 
-from horizon import tabs
 from horizon import exceptions
 from horizon import forms
+from horizon import tabs
 
 from horizon.utils import memoized
 
@@ -30,6 +30,7 @@ from tacker_horizon.openstack_dashboard.dashboards.nfv.vnfcatalog \
 
 from tacker_horizon.openstack_dashboard.dashboards.nfv.vnfcatalog \
     import forms as project_forms
+
 
 class IndexView(tabs.TabbedTableView):
     # A very simple class-based view...
@@ -66,7 +67,7 @@ class OnBoardVNFView(forms.ModalFormView):
     def get_context_data(self, **kwargs):
         context = super(OnBoardVNFView, self).get_context_data(**kwargs)
         # instance_id = self.kwargs['instance_id']
-        #context['instance_id'] = instance_id
+        # context['instance_id'] = instance_id
         # context['instance'] = self.get_object()
         context['submit_url'] = reverse(self.submit_url)
         return context

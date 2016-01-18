@@ -26,6 +26,7 @@ from tacker_horizon.openstack_dashboard import api
 
 LOG = logging.getLogger(__name__)
 
+
 class AddService(forms.SelfHandlingForm):
     vnf_name = forms.CharField(max_length=80, label=_("VNF Name"))
     vnfd_id = forms.ChoiceField(label=_("VNF Catalog Name"))

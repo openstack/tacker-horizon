@@ -21,8 +21,10 @@ from horizon import tables
 from openstack_dashboard import policy
 from tacker_horizon.openstack_dashboard import api
 
+
 class MyFilterAction(tables.FilterAction):
     name = "myfilter"
+
 
 class DeleteVNFLink(policy.PolicyTargetMixin, tables.DeleteAction):
     @staticmethod
@@ -44,6 +46,7 @@ class DeleteVNFLink(policy.PolicyTargetMixin, tables.DeleteAction):
     def action(self, request, obj_id):
         api.tacker.delete_vnfd(request, obj_id)
 
+
 class OnBoardVNFLink(tables.LinkAction):
     name = "onboardvnf"
     verbose_name = _("Onboard VNF")
@@ -53,16 +56,16 @@ class OnBoardVNFLink(tables.LinkAction):
 
 
 class VNFCatalogTable(tables.DataTable):
-    name = tables.Column('name', \
+    name = tables.Column('name',
                          verbose_name=_("Name"))
-    description = tables.Column('description', \
-                           verbose_name=_("Description"))
-    services = tables.Column('services', \
-                         verbose_name=_("Services"))
-    id = tables.Column('id', \
-                         verbose_name=_("Catalog Id"))
+    description = tables.Column('description',
+                               verbose_name=_("Description"))
+    services = tables.Column('services',
+                             verbose_name=_("Services"))
+    id = tables.Column('id',
+                        verbose_name=_("Catalog Id"))
 
-    class Meta:
+    class Meta(object):
         name = "vnfcatalog"
         verbose_name = _("VNFCatalog")
         table_actions = (OnBoardVNFLink, DeleteVNFLink, MyFilterAction,)

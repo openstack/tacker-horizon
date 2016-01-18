@@ -52,7 +52,6 @@ class OnBoardVNF(forms.SelfHandlingForm):
                    'data-source-raw': _('TOSCA YAML')}),
         required=False)
 
-
     def __init__(self, request, *args, **kwargs):
         super(OnBoardVNF, self).__init__(request, *args, **kwargs)
 
@@ -75,7 +74,7 @@ class OnBoardVNF(forms.SelfHandlingForm):
                 toscal_str = self.files['toscal_file'].read()
             else:
                 toscal_str = data['direct_input']
-            #toscal = yaml.loads(toscal_str)
+            # toscal = yaml.loads(toscal_str)
             data['tosca'] = toscal_str
         except Exception as e:
             msg = _('There was a problem loading the namespace: %s.') % e
