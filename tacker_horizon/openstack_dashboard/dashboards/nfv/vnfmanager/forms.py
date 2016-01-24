@@ -82,14 +82,14 @@ class AddService(forms.SelfHandlingForm):
 
         try:
             vnfd_list = api.tacker.vnfd_list(request)
-            available_choices = [(vnf['id'],vnf['name'])
+            available_choices = [(vnf['id'], vnf['name'])
                                  for vnf in vnfd_list]
         except Exception as e:
             msg = _('Failed to retrieve available VNF Catalog names: %s') % e
             LOG.error(msg)
 
         self.fields['vnfd_id'].choices = [('', _('Select a VNF Catalog Name'))
-                                          ]+available_choices
+                                          ] + available_choices
 
     def clean(self):
         data = super(AddService, self).clean()
@@ -135,7 +135,7 @@ class AddService(forms.SelfHandlingForm):
         try:
             vnf_name = data['vnf_name']
             vnfd_id = data['vnfd_id']
-            vnf_arg = {'vnf': {'vnfd_id': vnfd_id, 'name':  vnf_name,
+            vnf_arg = {'vnf': {'vnfd_id': vnfd_id, 'name': vnf_name,
                                'attributes': {'param_values': data[
                                    'param_values'], 'config': data[
                                    'config_values']}}}

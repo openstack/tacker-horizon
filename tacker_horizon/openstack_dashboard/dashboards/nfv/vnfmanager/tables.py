@@ -154,7 +154,7 @@ class DeleteServicesLink(policy.PolicyTargetMixin, tables.DeleteAction):
         )
 
     def action(self, request, obj_id):
-        api.tacker.delete_vnf(request,obj_id)
+        api.tacker.delete_vnf(request, obj_id)
 
 class AddServicesLink(tables.LinkAction):
     name = "addservice"
@@ -248,6 +248,6 @@ class VNFManagerTable(tables.DataTable):
     class Meta:
         name = "vnfmanager"
         verbose_name = _("VNFManager")
-        status_columns = ["status",]
+        status_columns = ["status", ]
         row_class = VNFUpdateRow
         table_actions = (AddServicesLink, DeleteServicesLink, MyFilterAction,)
