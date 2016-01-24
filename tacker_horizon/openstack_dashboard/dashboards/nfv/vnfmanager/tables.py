@@ -24,6 +24,7 @@ from horizon import tables
 from openstack_dashboard import policy
 from tacker_horizon.openstack_dashboard import api
 
+
 class VNFManagerItem(object):
     def __init__(self, name, description, vnfs, status, stack_status, stack_id):
         self.name = name
@@ -34,7 +35,7 @@ class VNFManagerItem(object):
         self.id = stack_id
 
 
-class VNFManagerItemList():
+class VNFManagerItemList(object):
     VNFLIST_P = []
 
     @classmethod
@@ -50,7 +51,6 @@ class VNFManagerItemList():
     @classmethod
     def clear_list(cls):
         cls.VNFLIST_P = []
-
 
 
 class MyFilterAction(tables.FilterAction):
@@ -89,8 +89,8 @@ class VNFUpdateRow(tables.Row):
 
     def get_data(self, request, vnf_id):
         try:
-            #stack = api.heat.stack_get(request, stack_id)
-            #if stack.stack_status == 'DELETE_COMPLETE':
+            # stack = api.heat.stack_get(request, stack_id)
+            # if stack.stack_status == 'DELETE_COMPLETE':
                 # returning 404 to the ajax call removes the
                 # row from the table on the ui
             #    raise Http404
@@ -98,7 +98,7 @@ class VNFUpdateRow(tables.Row):
             vnf_instance = api.tacker.get_vnf(request, vnf_id)
 
             if not vnf_instance and not item:
-                # TODO - bail with error
+                # TODO(NAME) - bail with error
                 return None
 
             if not vnf_instance and item:
@@ -123,7 +123,7 @@ class VNFUpdateRow(tables.Row):
                                      vnf['status'],
                                      vnf['status'],
                                      vnf['id'])
-                #VNFManagerItemList.add_item(obj)
+                # VNFManagerItemList.add_item(obj)
             else:
                 item.description = vnf_desc_str
                 item.vnfs = vnf_services_str
@@ -135,6 +135,7 @@ class VNFUpdateRow(tables.Row):
         except Exception as e:
             messages.error(request, e)
             raise
+
 
 class DeleteServicesLink(policy.PolicyTargetMixin, tables.DeleteAction):
     @staticmethod
@@ -155,6 +156,7 @@ class DeleteServicesLink(policy.PolicyTargetMixin, tables.DeleteAction):
 
     def action(self, request, obj_id):
         api.tacker.delete_vnf(request, obj_id)
+
 
 class AddServicesLink(tables.LinkAction):
     name = "addservice"
@@ -231,11 +233,11 @@ class VNFManagerTable(tables.DataTable):
         ("check_failed", pgettext_lazy("current status of stack",
                                        u"Check Failed")),
     )
-    name = tables.Column("name", \
+    name = tables.Column("name",
                          verbose_name=_("VNF Name"))
-    description = tables.Column("description", \
-                           verbose_name=_("Description"))
-    vnfs = tables.Column("vnfs", \
+    description = tables.Column("description",
+                               verbose_name=_("Description"))
+    vnfs = tables.Column("vnfs",
                          verbose_name=_("Deployed Services"))
     status = tables.Column("status",
                            hidden=True,
@@ -245,7 +247,7 @@ class VNFManagerTable(tables.DataTable):
                                  verbose_name=_("Status"),
                                  display_choices=STACK_STATUS_DISPLAY_CHOICES)
 
-    class Meta:
+    class Meta(object):
         name = "vnfmanager"
         verbose_name = _("VNFManager")
         status_columns = ["status", ]

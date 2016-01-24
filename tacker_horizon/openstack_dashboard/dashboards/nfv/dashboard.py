@@ -17,6 +17,7 @@ from django.utils.translation import ugettext_lazy as _
 
 import horizon
 
+
 class Nfvgroup(horizon.PanelGroup):
     slug = "nfvgroup"
     name = _("VNF Management")

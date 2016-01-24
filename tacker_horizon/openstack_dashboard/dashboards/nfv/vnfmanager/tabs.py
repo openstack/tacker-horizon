@@ -17,8 +17,8 @@ from django.utils.translation import ugettext_lazy as _
 from horizon import exceptions
 from horizon import tabs
 
-from tacker_horizon.openstack_dashboard.dashboards.nfv.vnfmanager import tables
 from tacker_horizon.openstack_dashboard import api
+from tacker_horizon.openstack_dashboard.dashboards.nfv.vnfmanager import tables
 from tacker_horizon.openstack_dashboard.dashboards.nfv.vnfmanager.tables import VNFManagerItem
 from tacker_horizon.openstack_dashboard.dashboards.nfv.vnfmanager.tables import VNFManagerItemList
 
@@ -35,10 +35,10 @@ class VNFManagerTab(tabs.TableTab):
 
     def get_vnfmanager_data(self):
         try:
-            #marker = self.request.GET.get(
+            # marker = self.request.GET.get(
             #            tables.VNFManagerTable._meta.pagination_param, None)
 
-            #instances, self._has_more = api.nova.server_list(
+            # instances, self._has_more = api.nova.server_list(
             #    self.request,
             #    search_opts={'marker': marker, 'paginate': True})
             self._has_more = True
@@ -54,7 +54,6 @@ class VNFManagerTab(tabs.TableTab):
                 except KeyError:
                     vnf_desc_str = ""
 
-
                 obj = VNFManagerItem(vnf['name'],
                                      vnf_desc_str,
                                      vnf_services_str,
@@ -69,6 +68,7 @@ class VNFManagerTab(tabs.TableTab):
             exceptions.handle(self.request, error_message)
 
             return []
+
 
 class VNFManagerTabs(tabs.TabGroup):
     slug = "vnfmanager_tabs"
