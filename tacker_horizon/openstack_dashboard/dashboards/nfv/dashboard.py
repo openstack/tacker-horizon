@@ -27,8 +27,10 @@ class Nfvgroup(horizon.PanelGroup):
 class Nfv(horizon.Dashboard):
     name = _("NFV")
     slug = "nfv"
-    panels = (Nfvgroup,)  # Add your panels here.
-    default_panel = 'vnfcatalog'  # Specify the slug of the dashboard's default panel.
+    # Add your panels here.
+    panels = (Nfvgroup,)
+    # Specify the slug of the dashboard's default panel.
+    default_panel = 'vnfcatalog'
 
 
 horizon.register(Nfv)

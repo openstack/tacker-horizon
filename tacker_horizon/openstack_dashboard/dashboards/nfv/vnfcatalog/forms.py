@@ -88,7 +88,8 @@ class OnBoardVNF(forms.SelfHandlingForm):
             tosca_arg = {'vnfd': {'attributes': {'vnfd': toscal}}}
             vnfd_instance = api.tacker.create_vnfd(request, tosca_arg)
             messages.success(request,
-                             _('VNF Catalog entry %s has been created.') % vnfd_instance['vnfd']['name'])
+                             _('VNF Catalog entry %s has been created.') %
+                             vnfd_instance['vnfd']['name'])
             return toscal
         except Exception as e:
             msg = _('Unable to create TOSCA. %s')

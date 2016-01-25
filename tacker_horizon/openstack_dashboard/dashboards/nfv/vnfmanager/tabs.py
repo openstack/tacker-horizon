@@ -19,8 +19,8 @@ from horizon import tabs
 
 from tacker_horizon.openstack_dashboard import api
 from tacker_horizon.openstack_dashboard.dashboards.nfv.vnfmanager import tables
-from tacker_horizon.openstack_dashboard.dashboards.nfv.vnfmanager.tables import VNFManagerItem
-from tacker_horizon.openstack_dashboard.dashboards.nfv.vnfmanager.tables import VNFManagerItemList
+from tacker_horizon.openstack_dashboard.dashboards.nfv.vnfmanager.tables import VNFManagerItem  # noqa
+from tacker_horizon.openstack_dashboard.dashboards.nfv.vnfmanager.tables import VNFManagerItemList  # noqa
 
 
 class VNFManagerTab(tabs.TableTab):

@@ -58,8 +58,11 @@ class VNFCatalogTab(tabs.TableTab):
                         vnfd_services.append(s['service_type'])
                 vnfds_services_string = ""
                 if len(vnfd_services) > 0:
-                    vnfds_services_string = ', '.join([str(item) for item in vnfd_services])
-                item = VNFCatalogItem(vnfd['name'], vnfd['description'], vnfds_services_string, vnfd['id'])
+                    vnfds_services_string = ', '.join(
+                        [str(item) for item in vnfd_services])
+                item = VNFCatalogItem(vnfd['name'],
+                                      vnfd['description'],
+                                      vnfds_services_string, vnfd['id'])
                 instances.append(item)
             return instances
         except Exception:

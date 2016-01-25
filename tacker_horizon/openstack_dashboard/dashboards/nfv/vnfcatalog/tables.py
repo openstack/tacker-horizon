@@ -59,11 +59,11 @@ class VNFCatalogTable(tables.DataTable):
     name = tables.Column('name',
                          verbose_name=_("Name"))
     description = tables.Column('description',
-                               verbose_name=_("Description"))
+                                verbose_name=_("Description"))
     services = tables.Column('services',
                              verbose_name=_("Services"))
     id = tables.Column('id',
-                        verbose_name=_("Catalog Id"))
+                       verbose_name=_("Catalog Id"))
 
     class Meta(object):
         name = "vnfcatalog"

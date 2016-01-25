@@ -26,7 +26,8 @@ from tacker_horizon.openstack_dashboard import api
 
 
 class VNFManagerItem(object):
-    def __init__(self, name, description, vnfs, status, stack_status, stack_id):
+    def __init__(self, name, description, vnfs,
+                 status, stack_status, stack_id):
         self.name = name
         self.description = description
         self.vnfs = vnfs
@@ -118,11 +119,11 @@ class VNFUpdateRow(tables.Row):
             if not item:
                 # Add an item entry
                 item = VNFManagerItem(vnf['name'],
-                                     vnf_desc_str,
-                                     vnf_services_str,
-                                     vnf['status'],
-                                     vnf['status'],
-                                     vnf['id'])
+                                      vnf_desc_str,
+                                      vnf_services_str,
+                                      vnf['status'],
+                                      vnf['status'],
+                                      vnf['id'])
                 # VNFManagerItemList.add_item(obj)
             else:
                 item.description = vnf_desc_str
@@ -236,7 +237,7 @@ class VNFManagerTable(tables.DataTable):
     name = tables.Column("name",
                          verbose_name=_("VNF Name"))
     description = tables.Column("description",
-                               verbose_name=_("Description"))
+                                verbose_name=_("Description"))
     vnfs = tables.Column("vnfs",
                          verbose_name=_("Deployed Services"))
     status = tables.Column("status",

@@ -64,7 +64,8 @@ class AddService(forms.SelfHandlingForm):
 
     config_file = forms.FileField(
         label=_('Configuration Value File'),
-        help_text=_('VNF Configuration file with YAML formatted contents to upload.'),
+        help_text=_('VNF Configuration file with YAML '
+                    'formatted contents to upload.'),
         widget=forms.FileInput(
             attrs={'class': 'switched', 'data-switch-on': 'config',
                    'data-config-file': _('Configuration Value File')}),
@@ -142,7 +143,8 @@ class AddService(forms.SelfHandlingForm):
                                    'config_values']}}}
             api.tacker.create_vnf(request, vnf_arg)
             messages.success(request,
-                             _('VNF %s create operation initiated.') % vnf_name)
+                             _('VNF %s create operation initiated.') %
+                             vnf_name)
             return True
         except Exception as e:
             exceptions.handle(request,

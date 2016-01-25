@@ -41,10 +41,11 @@ LOG = logging.getLogger(__name__)
 def tackerclient(request):
     insecure = getattr(settings, 'OPENSTACK_SSL_NO_VERIFY', False)
     cacert = getattr(settings, 'OPENSTACK_SSL_CACERT', None)
-    c = tacker_client.Client(token=request.user.token.id,
-                             auth_url=base.url_for(request, 'identity'),
-                             endpoint_url=base.url_for(request, 'nfv-orchestration'),
-                             insecure=insecure, ca_cert=cacert)
+    c = tacker_client.Client(
+        token=request.user.token.id,
+        auth_url=base.url_for(request, 'identity'),
+        endpoint_url=base.url_for(request, 'nfv-orchestration'),
+        insecure=insecure, ca_cert=cacert)
     return c
 
 
