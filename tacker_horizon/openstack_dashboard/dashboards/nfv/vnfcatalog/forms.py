@@ -12,8 +12,6 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-
-from django.core.urlresolvers import reverse
 from django.forms import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
@@ -22,8 +20,6 @@ from horizon import forms
 from horizon import messages
 
 from tacker_horizon.openstack_dashboard import api
-
-import yaml
 
 
 class OnBoardVNF(forms.SelfHandlingForm):

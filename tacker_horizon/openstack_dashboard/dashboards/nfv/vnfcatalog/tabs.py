@@ -15,8 +15,6 @@
 
 from django.utils.translation import ugettext_lazy as _
 
-import uuid
-
 from horizon import exceptions
 from horizon import tabs
 
