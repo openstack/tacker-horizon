@@ -7,4 +7,4 @@
 # be installed in a specific order.
 #
 # PBR should always appear first
-pbr>=1.6
+pbr>=1.6 # Apache-2.0
