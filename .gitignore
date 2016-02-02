@@ -20,6 +20,8 @@ pip-log.txt
 .coverage
 .tox
 .venv
+*.lock
+tacker_horizon/test/.secret_key_store
 
 #Translations
 *.mo
