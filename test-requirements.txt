@@ -8,9 +8,6 @@
 #
 # Hacking should appear first in case something else depends on pep8
 hacking<0.11,>=0.10.0
-# Testing Requirements
-http://tarballs.openstack.org/horizon/horizon-master.tar.gz#egg=horizon
-http://tarballs.openstack.org/python-tackerclient/python-tackerclient-master.tar.gz#egg=python-tackerclient
 #
 coverage>=3.6 # Apache-2.0
 django-nose>=1.2 # BSD
