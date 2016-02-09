@@ -14,24 +14,13 @@
 
 from __future__ import absolute_import
 
-import collections
 import logging
 
-import netaddr
-
 from django.conf import settings
-from django.utils.datastructures import SortedDict
-from django.utils.translation import ugettext_lazy as _
-from neutronclient.common import exceptions as neutron_exc
-from neutronclient.v2_0 import client as neutron_client
 from tackerclient.v1_0 import client as tacker_client
 
-from horizon import messages
 from horizon.utils.memoized import memoized  # noqa
 from openstack_dashboard.api import base
-from openstack_dashboard.api import network_base
-from openstack_dashboard.api import nova
-from openstack_dashboard import policy
 
 
 LOG = logging.getLogger(__name__)

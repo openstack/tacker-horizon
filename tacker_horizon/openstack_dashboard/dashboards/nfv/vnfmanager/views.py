@@ -17,13 +17,8 @@ from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 
-from horizon import exceptions
 from horizon import forms
 from horizon import tabs
-
-from horizon.utils import memoized
-
-from tacker_horizon.openstack_dashboard import api
 
 from tacker_horizon.openstack_dashboard.dashboards.nfv.vnfmanager \
     import forms as project_forms
