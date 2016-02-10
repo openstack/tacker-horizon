@@ -25,6 +25,7 @@ from horizon.utils import memoized
 
 from openstack_dashboard import api
 
+from tacker_horizon.openstack_dashboard import api as tacker_api
 from tacker_horizon.openstack_dashboard.dashboards.nfv.vnfcatalog \
     import tabs as nfv_tabs
 
@@ -71,3 +72,41 @@ class OnBoardVNFView(forms.ModalFormView):
         # context['instance'] = self.get_object()
         context['submit_url'] = reverse(self.submit_url)
         return context
+
+
+class DetailView(tabs.TabView):
+    tab_group_class = nfv_tabs.VNFDDetailTabs
+    template_name = 'nfv/vnfcatalog/detail.html'
+    redirect_url = 'horizon:nfv:vnfcatalog:index'
+    page_title = _("VNFD Details: {{ vnfd_id }}")
+
+    def get_context_data(self, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
+        vnfd = self.get_data()
+        context['vnfd'] = vnfd
+        context['vnfd_id'] = kwargs['vnfd_id']
+        context['url'] = reverse(self.redirect_url)
+        return context
+
+    @memoized.memoized_method
+    def get_data(self):
+        vnfd_id = self.kwargs['vnfd_id']
+
+        try:
+            template = None
+            vnfd = tacker_api.tacker.get_vnfd(self.request, vnfd_id)
+            attributes_json = vnfd['vnfd']['attributes']
+            template = attributes_json.get('vnfd', None)
+            vnfd['template'] = template
+        except Exception:
+            redirect = reverse(self.redirect_url)
+            exceptions.handle(self.request,
+                              _('Unable to retrieve details for '
+                                'VNFD "%s".') % vnfd_id,
+                              redirect=redirect)
+            raise exceptions.Http302(redirect)
+        return vnfd
+
+    def get_tabs(self, request, *args, **kwargs):
+        vnfd = self.get_data()
+        return self.tab_group_class(request, vnfd=vnfd, **kwargs)
