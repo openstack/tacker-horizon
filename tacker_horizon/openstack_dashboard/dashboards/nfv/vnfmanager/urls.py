@@ -22,5 +22,5 @@ from tacker_horizon.openstack_dashboard.dashboards.nfv.vnfmanager import views
 urlpatterns = patterns(
     'tacker_horizon.openstack_dashboard.dashboards.nfv.vnfmanager.views',
     url(r'^$', views.IndexView.as_view(), name='index'),
-    url(r'^addservice$', views.AddServiceView.as_view(), name='addservice'),
+    url(r'^deployvnf$', views.DeployVNFView.as_view(), name='deployvnf'),
 )

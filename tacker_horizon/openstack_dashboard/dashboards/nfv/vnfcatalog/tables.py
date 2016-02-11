@@ -26,7 +26,7 @@ class MyFilterAction(tables.FilterAction):
     name = "myfilter"
 
 
-class DeleteVNFLink(policy.PolicyTargetMixin, tables.DeleteAction):
+class DeleteVNFD(policy.PolicyTargetMixin, tables.DeleteAction):
     @staticmethod
     def action_present(count):
         return ungettext_lazy(
@@ -47,7 +47,7 @@ class DeleteVNFLink(policy.PolicyTargetMixin, tables.DeleteAction):
         api.tacker.delete_vnfd(request, obj_id)
 
 
-class OnBoardVNFLink(tables.LinkAction):
+class OnBoardVNF(tables.LinkAction):
     name = "onboardvnf"
     verbose_name = _("Onboard VNF")
     classes = ("ajax-modal",)
@@ -69,4 +69,4 @@ class VNFCatalogTable(tables.DataTable):
     class Meta(object):
         name = "vnfcatalog"
         verbose_name = _("VNFCatalog")
-        table_actions = (OnBoardVNFLink, DeleteVNFLink, MyFilterAction,)
+        table_actions = (OnBoardVNF, DeleteVNFD, MyFilterAction,)

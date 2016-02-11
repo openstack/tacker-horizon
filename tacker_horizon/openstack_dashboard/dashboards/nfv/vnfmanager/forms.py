@@ -26,7 +26,7 @@ from tacker_horizon.openstack_dashboard import api
 LOG = logging.getLogger(__name__)
 
 
-class AddService(forms.SelfHandlingForm):
+class DeployVNF(forms.SelfHandlingForm):
     vnf_name = forms.CharField(max_length=80, label=_("VNF Name"))
     vnfd_id = forms.ChoiceField(label=_("VNF Catalog Name"))
     source_type = forms.ChoiceField(
@@ -79,7 +79,7 @@ class AddService(forms.SelfHandlingForm):
         required=False)
 
     def __init__(self, request, *args, **kwargs):
-        super(AddService, self).__init__(request, *args, **kwargs)
+        super(DeployVNF, self).__init__(request, *args, **kwargs)
 
         try:
             vnfd_list = api.tacker.vnfd_list(request)
@@ -93,7 +93,7 @@ class AddService(forms.SelfHandlingForm):
                                           ] + available_choices
 
     def clean(self):
-        data = super(AddService, self).clean()
+        data = super(DeployVNF, self).clean()
 
         param_file = data.get('param_file', None)
         param_raw = data.get('direct_input', None)

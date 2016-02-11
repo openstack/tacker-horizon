@@ -138,7 +138,7 @@ class VNFUpdateRow(tables.Row):
             raise
 
 
-class DeleteServicesLink(policy.PolicyTargetMixin, tables.DeleteAction):
+class DeleteVNF(policy.PolicyTargetMixin, tables.DeleteAction):
     @staticmethod
     def action_present(count):
         return ungettext_lazy(
@@ -159,12 +159,12 @@ class DeleteServicesLink(policy.PolicyTargetMixin, tables.DeleteAction):
         api.tacker.delete_vnf(request, obj_id)
 
 
-class AddServicesLink(tables.LinkAction):
-    name = "addservice"
+class DeployVNF(tables.LinkAction):
+    name = "deployvnf"
     verbose_name = _("Deploy VNF")
     classes = ("ajax-modal",)
     icon = "plus"
-    url = "horizon:nfv:vnfmanager:addservice"
+    url = "horizon:nfv:vnfmanager:deployvnf"
 
 
 class VNFManagerTable(tables.DataTable):
@@ -253,4 +253,4 @@ class VNFManagerTable(tables.DataTable):
         verbose_name = _("VNFManager")
         status_columns = ["status", ]
         row_class = VNFUpdateRow
-        table_actions = (AddServicesLink, DeleteServicesLink, MyFilterAction,)
+        table_actions = (DeployVNF, DeleteVNF, MyFilterAction,)

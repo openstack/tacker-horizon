@@ -37,14 +37,14 @@ class IndexView(tabs.TabbedTableView):
         return context
 
 
-class AddServiceView(forms.ModalFormView):
-    form_class = project_forms.AddService
-    template_name = 'nfv/vnfmanager/add_service.html'
+class DeployVNFView(forms.ModalFormView):
+    form_class = project_forms.DeployVNF
+    template_name = 'nfv/vnfmanager/deploy_vnf.html'
     success_url = reverse_lazy("horizon:nfv:vnfmanager:index")
-    modal_id = "add_service_modal"
+    modal_id = "deploy_vnf_modal"
     modal_header = _("Deploy VNF")
     submit_label = _("Deploy VNF")
-    submit_url = "horizon:nfv:vnfmanager:addservice"
+    submit_url = "horizon:nfv:vnfmanager:deployvnf"
 
     # @memoized.memoized_method
     # def get_object(self):
@@ -60,7 +60,7 @@ class AddServiceView(forms.ModalFormView):
         return {}
 
     def get_context_data(self, **kwargs):
-        context = super(AddServiceView, self).get_context_data(**kwargs)
+        context = super(DeployVNFView, self).get_context_data(**kwargs)
         # instance_id = self.kwargs['instance_id']
         # context['instance_id'] = instance_id
         # context['instance'] = self.get_object()
