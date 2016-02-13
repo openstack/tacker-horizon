@@ -147,4 +147,5 @@ class DeployVNF(forms.SelfHandlingForm):
             return True
         except Exception as e:
             exceptions.handle(request,
-                              _(e.message))
+                              _('Failed to create VNF: %s') %
+                              e.message)
