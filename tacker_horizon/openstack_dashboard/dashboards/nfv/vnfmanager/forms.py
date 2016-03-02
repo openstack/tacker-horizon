@@ -29,6 +29,8 @@ LOG = logging.getLogger(__name__)
 class DeployVNF(forms.SelfHandlingForm):
     vnf_name = forms.CharField(max_length=80, label=_("VNF Name"))
     vnfd_id = forms.ChoiceField(label=_("VNF Catalog Name"))
+    vim_id = forms.ChoiceField(label=_("VIM Name"))
+    region_name = forms.CharField(label=_("Region Name"), required=False)
     source_type = forms.ChoiceField(
         label=_('Parameter Value Source'),
         required=False,
@@ -83,14 +85,28 @@ class DeployVNF(forms.SelfHandlingForm):
 
         try:
             vnfd_list = api.tacker.vnfd_list(request)
-            available_choices = [(vnf['id'], vnf['name'])
-                                 for vnf in vnfd_list]
+            available_choices_vnfd = [(vnf['id'], vnf['name']) for vnf in
+                                      vnfd_list]
         except Exception as e:
+            available_choices_vnfd = []
             msg = _('Failed to retrieve available VNF Catalog names: %s') % e
             LOG.error(msg)
 
+        try:
+            vim_list = api.tacker.vim_list(request)
+            available_choices_vims = [(vim['id'], vim['name']) for vim in
+                                      vim_list]
+
+        except Exception as e:
+            available_choices_vims = []
+            msg = _('Failed to retrieve available VIM names: %s') % e
+            LOG.error(msg)
+
         self.fields['vnfd_id'].choices = [('', _('Select a VNF Catalog Name'))
-                                          ] + available_choices
+                                          ]+available_choices_vnfd
+        self.fields['vim_id'].choices = [('',
+                                          _('Select a VIM Name'))
+                                         ]+available_choices_vims
 
     def clean(self):
         data = super(DeployVNF, self).clean()
@@ -136,10 +152,16 @@ class DeployVNF(forms.SelfHandlingForm):
         try:
             vnf_name = data['vnf_name']
             vnfd_id = data['vnfd_id']
-            vnf_arg = {'vnf': {'vnfd_id': vnfd_id, 'name': vnf_name,
+            vim_id = data['vim_id']
+            region_name = data['region_name']
+            vnf_arg = {'vnf': {'vnfd_id': vnfd_id, 'name':  vnf_name,
+                               'vim_id': vim_id,
                                'attributes': {'param_values': data[
                                    'param_values'], 'config': data[
                                    'config_values']}}}
+            if region_name:
+                vnf_arg.setdefault('placement_attr', {})[
+                    region_name] = region_name
             api.tacker.create_vnf(request, vnf_arg)
             messages.success(request,
                              _('VNF %s create operation initiated.') %

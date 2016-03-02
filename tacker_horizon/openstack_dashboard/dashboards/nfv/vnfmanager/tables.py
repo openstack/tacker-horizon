@@ -26,11 +26,13 @@ from tacker_horizon.openstack_dashboard import api
 
 
 class VNFManagerItem(object):
-    def __init__(self, name, description, vnfs,
-                 status, stack_status, stack_id):
+
+    def __init__(self, name, description, vnfs, vim, status,
+                 stack_status, stack_id):
         self.name = name
         self.description = description
         self.vnfs = vnfs
+        self.vim = vim
         self.status = status
         self.stack_status = stack_status
         self.id = stack_id
@@ -116,15 +118,12 @@ class VNFUpdateRow(tables.Row):
             except KeyError:
                 vnf_desc_str = ""
 
+            vim = vnf['placement_attr']['vim_name']
             if not item:
                 # Add an item entry
-                item = VNFManagerItem(vnf['name'],
-                                      vnf_desc_str,
-                                      vnf_services_str,
-                                      vnf['status'],
-                                      vnf['status'],
-                                      vnf['id'])
-                # VNFManagerItemList.add_item(obj)
+                item = VNFManagerItem(vnf['name'], vnf_desc_str,
+                                      vnf_services_str, str(vim),
+                                      vnf['status'], vnf['status'], vnf['id'])
             else:
                 item.description = vnf_desc_str
                 item.vnfs = vnf_services_str
@@ -240,6 +239,7 @@ class VNFManagerTable(tables.DataTable):
                                 verbose_name=_("Description"))
     vnfs = tables.Column("vnfs",
                          verbose_name=_("Deployed Services"))
+    vim = tables.Column("vim", verbose_name=_("VIM"))
     status = tables.Column("status",
                            hidden=True,
                            status=True,

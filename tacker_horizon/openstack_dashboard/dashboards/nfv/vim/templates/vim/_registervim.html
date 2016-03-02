@@ -1,0 +1,9 @@
+{% extends "horizon/common/_modal_form.html" %}
+{% load i18n %}
+
+{% block form_attrs %}enctype="form-data"{% endblock %}
+
+{% block modal-body-right %}
+    <h3>{% trans "Description:" %}</h3>
+    <p>{% trans "Registers a VIM." %}</p>
+{% endblock %}

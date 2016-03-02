@@ -82,3 +82,26 @@ def delete_vnf(request, vnf_id):
 def delete_vnfd(request, vnfd_id):
     LOG.debug("delete_vnfd():vnfd_id=%s", str(vnfd_id))
     tackerclient(request).delete_vnfd(vnfd_id)
+
+
+def create_vim(request, vim_arg):
+    LOG.debug("create_vim(): vim_arg=%s", str(vim_arg))
+    vim_instance = tackerclient(request).create_vim(body=vim_arg)
+    return vim_instance
+
+
+def get_vim(request, vim_id):
+    LOG.debug("vim_get(): vim_id=%s", str(vim_id))
+    vim_instance = tackerclient(request).show_vim(vim_id)
+    return vim_instance
+
+
+def delete_vim(request, vim_id):
+    LOG.debug("delete_vim():vim_id=%s", str(vim_id))
+    tackerclient(request).delete_vim(vim_id)
+
+
+def vim_list(request, **params):
+    LOG.debug("vim_list(): params=%s", params)
+    vims = tackerclient(request).list_vims(**params).get('vims')
+    return vims
