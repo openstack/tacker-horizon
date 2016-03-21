@@ -12,19 +12,26 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+import json
+import logging
 
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 
+from horizon import exceptions
 from horizon import forms
 from horizon import tabs
+from horizon.utils import memoized
 
+from tacker_horizon.openstack_dashboard import api as tacker_api
 from tacker_horizon.openstack_dashboard.dashboards.nfv.vnfmanager \
     import forms as project_forms
 
 from tacker_horizon.openstack_dashboard.dashboards.nfv.vnfmanager \
     import tabs as nfv_tabs
+
+LOG = logging.getLogger(__name__)
 
 
 class IndexView(tabs.TabbedTableView):
@@ -66,3 +73,42 @@ class DeployVNFView(forms.ModalFormView):
         # context['instance'] = self.get_object()
         context['submit_url'] = reverse(self.submit_url)
         return context
+
+
+class DetailView(tabs.TabView):
+    tab_group_class = nfv_tabs.VNFDetailsTabs
+    template_name = 'nfv/vnfmanager/detail.html'
+    redirect_url = 'horizon:nfv:vnfmanager:index'
+    page_title = _("VNF Details: {{ vnf_id }}")
+
+    def get_context_data(self, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
+        vnf = self.get_data()
+        context['vnf'] = vnf
+        context['vnf_id'] = kwargs['vnf_id']
+        context['url'] = reverse(self.redirect_url)
+        return context
+
+    @memoized.memoized_method
+    def get_data(self):
+        vnf_id = self.kwargs['vnf_id']
+
+        try:
+            vnf = tacker_api.tacker.get_vnf(self.request, vnf_id)
+            vnf["vnf"]["mgmt_url"] = json.loads(vnf["vnf"]["mgmt_url"]) if \
+                vnf["vnf"]["mgmt_url"] else None
+            return vnf
+        except ValueError as e:
+            msg = _('Cannot decode json : %s') % e
+            LOG.error(msg)
+        except Exception:
+            redirect = reverse(self.redirect_url)
+            exceptions.handle(self.request,
+                              _('Unable to retrieve details for '
+                                'VNF "%s".') % vnf_id,
+                              redirect=redirect)
+            raise exceptions.Http302(redirect)
+
+    def get_tabs(self, request, *args, **kwargs):
+        vnf = self.get_data()
+        return self.tab_group_class(request, vnf=vnf, **kwargs)

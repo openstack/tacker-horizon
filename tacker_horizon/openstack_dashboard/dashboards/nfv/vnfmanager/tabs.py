@@ -76,3 +76,18 @@ class VNFManagerTabs(tabs.TabGroup):
     slug = "vnfmanager_tabs"
     tabs = (VNFManagerTab,)
     sticky = True
+
+
+class VDUDetailTab(tabs.Tab):
+    name = _("VDU Detail")
+    slug = "VDU_Details"
+    template_name = "nfv/vnfmanager/vdu_details.html"
+
+    def get_context_data(self, request):
+        return {'vnf': self.tab_group.kwargs['vnf']}
+
+
+class VNFDetailsTabs(tabs.TabGroup):
+    slug = "VNF_details"
+    tabs = (VDUDetailTab,)
+    sticky = True

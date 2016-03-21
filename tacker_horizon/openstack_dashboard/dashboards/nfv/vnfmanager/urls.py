@@ -23,4 +23,5 @@ urlpatterns = patterns(
     'tacker_horizon.openstack_dashboard.dashboards.nfv.vnfmanager.views',
     url(r'^$', views.IndexView.as_view(), name='index'),
     url(r'^deployvnf$', views.DeployVNFView.as_view(), name='deployvnf'),
+    url(r'^(?P<vnf_id>[^/]+)/$', views.DetailView.as_view(), name='detail'),
 )

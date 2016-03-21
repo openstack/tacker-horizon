@@ -234,6 +234,7 @@ class VNFManagerTable(tables.DataTable):
                                        u"Check Failed")),
     )
     name = tables.Column("name",
+                         link="horizon:nfv:vnfmanager:detail",
                          verbose_name=_("VNF Name"))
     description = tables.Column("description",
                                 verbose_name=_("Description"))
