@@ -154,14 +154,19 @@ class DeployVNF(forms.SelfHandlingForm):
             vnfd_id = data['vnfd_id']
             vim_id = data['vim_id']
             region_name = data['region_name']
+            param_val = data['param_values']
+            config_val = data['config_values']
             vnf_arg = {'vnf': {'vnfd_id': vnfd_id, 'name':  vnf_name,
-                               'vim_id': vim_id,
-                               'attributes': {'param_values': data[
-                                   'param_values'], 'config': data[
-                                   'config_values']}}}
+                               'vim_id': vim_id}}
             if region_name:
                 vnf_arg.setdefault('placement_attr', {})[
                     region_name] = region_name
+            vnf_attr = vnf_arg['vnf'].setdefault('attributes', {})
+            if param_val:
+                vnf_attr['param_values'] = param_val
+            if config_val:
+                vnf_attr['config'] = config_val
+
             api.tacker.create_vnf(request, vnf_arg)
             messages.success(request,
                              _('VNF %s create operation initiated.') %
