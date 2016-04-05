@@ -27,9 +27,10 @@ LOG = logging.getLogger(__name__)
 
 
 class DeployVNF(forms.SelfHandlingForm):
-    vnf_name = forms.CharField(max_length=80, label=_("VNF Name"))
+    vnf_name = forms.CharField(max_length=80, label=_("VNF Name"),
+                               required=False)
     vnfd_id = forms.ChoiceField(label=_("VNF Catalog Name"))
-    vim_id = forms.ChoiceField(label=_("VIM Name"))
+    vim_id = forms.ChoiceField(label=_("VIM Name"), required=False)
     region_name = forms.CharField(label=_("Region Name"), required=False)
     source_type = forms.ChoiceField(
         label=_('Parameter Value Source'),
