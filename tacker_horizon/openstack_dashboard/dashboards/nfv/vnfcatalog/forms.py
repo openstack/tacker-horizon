@@ -81,7 +81,9 @@ class OnBoardVNF(forms.SelfHandlingForm):
     def handle(self, request, data):
         try:
             toscal = data['tosca']
-            tosca_arg = {'vnfd': {'attributes': {'vnfd': toscal}}}
+            vnfd_name = data['name']
+            tosca_arg = {'vnfd': {'name': vnfd_name, 'attributes': {'vnfd':
+                                                                    toscal}}}
             vnfd_instance = api.tacker.create_vnfd(request, tosca_arg)
             messages.success(request,
                              _('VNF Catalog entry %s has been created.') %
