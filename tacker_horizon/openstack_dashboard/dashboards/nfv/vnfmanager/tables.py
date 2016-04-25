@@ -23,6 +23,7 @@ from horizon import tables
 
 from openstack_dashboard import policy
 from tacker_horizon.openstack_dashboard import api
+from tackerclient.common.exceptions import NotFound
 
 
 class VNFManagerItem(object):
@@ -130,8 +131,8 @@ class VNFUpdateRow(tables.Row):
                 item.status = vnf['status']
                 item.stack_status = vnf['status']
             return item
-        except Http404:
-            raise
+        except (Http404, NotFound):
+            raise Http404
         except Exception as e:
             messages.error(request, e)
             raise
