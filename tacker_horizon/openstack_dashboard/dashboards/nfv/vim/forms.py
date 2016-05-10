@@ -28,7 +28,8 @@ LOG = logging.getLogger(__name__)
 
 class RegisterVim(forms.SelfHandlingForm):
     vim_name = forms.CharField(max_length=80, label=_("Name"))
-    vim_description = forms.CharField(max_length=80, label=_("Description"))
+    vim_description = forms.CharField(max_length=80, label=_("Description"),
+                                      required=False)
     auth_url = forms.URLField(label=_("Auth URL"))
     username = forms.CharField(max_length=80, label=_("Username"))
     password = forms.CharField(label=_("Password"),
