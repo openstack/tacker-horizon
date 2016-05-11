@@ -23,7 +23,7 @@ from tacker_horizon.openstack_dashboard import api
 
 
 class OnBoardVNF(forms.SelfHandlingForm):
-    name = forms.CharField(max_length=80, label=_("Name"), required=False)
+    name = forms.CharField(max_length=80, label=_("Name"))
     source_type = forms.ChoiceField(
         label=_('TOSCA Template Source'),
         required=False,
