@@ -24,6 +24,10 @@ from tacker_horizon.openstack_dashboard import api
 
 class OnBoardVNF(forms.SelfHandlingForm):
     name = forms.CharField(max_length=80, label=_("Name"))
+    description = forms.CharField(widget=forms.widgets.Textarea(
+                                  attrs={'rows': 4}),
+                                  label=_("Description"),
+                                  required=False)
     source_type = forms.ChoiceField(
         label=_('TOSCA Template Source'),
         required=False,
@@ -82,8 +86,10 @@ class OnBoardVNF(forms.SelfHandlingForm):
         try:
             toscal = data['tosca']
             vnfd_name = data['name']
-            tosca_arg = {'vnfd': {'name': vnfd_name, 'attributes': {'vnfd':
-                                                                    toscal}}}
+            vnfd_description = data['description']
+            tosca_arg = {'vnfd': {'name': vnfd_name,
+                                  'description': vnfd_description,
+                                  'attributes': {'vnfd': toscal}}}
             vnfd_instance = api.tacker.create_vnfd(request, tosca_arg)
             messages.success(request,
                              _('VNF Catalog entry %s has been created.') %
