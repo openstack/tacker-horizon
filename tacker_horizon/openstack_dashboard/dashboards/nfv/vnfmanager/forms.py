@@ -28,6 +28,10 @@ LOG = logging.getLogger(__name__)
 
 class DeployVNF(forms.SelfHandlingForm):
     vnf_name = forms.CharField(max_length=255, label=_("VNF Name"))
+    description = forms.CharField(widget=forms.widgets.Textarea(
+                                  attrs={'rows': 4}),
+                                  label=_("Description"),
+                                  required=False)
     vnfd_id = forms.ChoiceField(label=_("VNF Catalog Name"))
     vim_id = forms.ChoiceField(label=_("VIM Name"), required=False)
     region_name = forms.CharField(label=_("Region Name"), required=False)
@@ -151,12 +155,14 @@ class DeployVNF(forms.SelfHandlingForm):
     def handle(self, request, data):
         try:
             vnf_name = data['vnf_name']
+            description = data['description']
             vnfd_id = data['vnfd_id']
             vim_id = data['vim_id']
             region_name = data['region_name']
             param_val = data['param_values']
             config_val = data['config_values']
             vnf_arg = {'vnf': {'vnfd_id': vnfd_id, 'name':  vnf_name,
+                               'description': description,
                                'vim_id': vim_id}}
             if region_name:
                 vnf_arg.setdefault('placement_attr', {})[
