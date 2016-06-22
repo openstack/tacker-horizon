@@ -23,7 +23,7 @@ from tacker_horizon.openstack_dashboard import api
 
 
 class OnBoardVNF(forms.SelfHandlingForm):
-    name = forms.CharField(max_length=80, label=_("Name"))
+    name = forms.CharField(max_length=255, label=_("Name"))
     description = forms.CharField(widget=forms.widgets.Textarea(
                                   attrs={'rows': 4}),
                                   label=_("Description"),
