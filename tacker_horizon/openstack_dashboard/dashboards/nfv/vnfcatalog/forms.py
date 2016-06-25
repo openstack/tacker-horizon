@@ -69,6 +69,11 @@ class OnBoardVNF(forms.SelfHandlingForm):
         if not toscal_raw and not toscal_file:
             raise ValidationError(
                 _("No input was provided for the namespace content."))
+
+        if toscal_file and not toscal_file.name.endswith(('.yaml', '.csar')):
+            raise ValidationError(_("Only .yaml or .csar file uploads \
+                                    are supported"))
+
         try:
             if toscal_file:
                 toscal_str = self.files['toscal_file'].read()
