@@ -63,6 +63,7 @@ class VIMTable(tables.DataTable):
     regions = tables.Column('regions', verbose_name=_("Regions"))
     user = tables.Column('user', verbose_name=_("User"))
     project = tables.Column('project', verbose_name=_("Project"))
+    status = tables.Column('status', verbose_name=_("Status"))
 
     class Meta(object):
         name = "vim"

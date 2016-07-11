@@ -24,7 +24,7 @@ from tacker_horizon.openstack_dashboard.dashboards.nfv.vim import tables
 
 class VIMItem(object):
     def __init__(self, name, description, regions, vim_id, auth_url,
-                 user, project):
+                 user, project, status):
         self.id = vim_id
         self.name = name
         self.description = description
@@ -32,6 +32,7 @@ class VIMItem(object):
         self.auth_url = auth_url
         self.user = user
         self.project = project
+        self.status = status
 
 
 class VIMTab(tabs.TableTab):
@@ -58,12 +59,13 @@ class VIMTab(tabs.TableTab):
                 project_info = vim['vim_project']
                 project = project_info['name'] if project_info[
                     'name'] else project_info['id']
+                status = vim["status"]
                 item = VIMItem(name=vim.get('name', ''),
                                description=vim.get('description', ''),
                                regions=vim_regions,
                                vim_id=vim.get('id', ''),
                                auth_url=vim.get('auth_url', ''),
-                               user=user, project=project)
+                               user=user, project=project, status=status)
                 instances.append(item)
             return instances
         except Exception:
