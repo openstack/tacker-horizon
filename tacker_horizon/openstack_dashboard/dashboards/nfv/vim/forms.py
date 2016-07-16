@@ -35,6 +35,16 @@ class RegisterVim(forms.SelfHandlingForm):
     password = forms.CharField(label=_("Password"),
                                widget=forms.PasswordInput(render_value=False))
     project_name = forms.CharField(max_length=80, label=_("Project Name"))
+    is_default = forms.BooleanField(
+        label=_("Default"),
+        initial=False,
+        required=False,
+        widget=forms.CheckboxInput(
+            attrs={
+                'class': 'switched',
+            }
+        )
+    )
 
     def __init__(self, request, *args, **kwargs):
         super(RegisterVim, self).__init__(request, *args, **kwargs)
@@ -51,13 +61,15 @@ class RegisterVim(forms.SelfHandlingForm):
             password = data['password']
             username = data['username']
             project_name = data['project_name']
+            is_default = data['is_default']
             auth_url = data['auth_url']
             vim_type = 'openstack'
             vim_arg = {'vim': {'name': vim_name, 'description': description,
                                'type': vim_type, 'auth_url': auth_url,
                                'auth_cred': {'username': username,
                                              'password': password},
-                               'vim_project': {'name': project_name}}}
+                               'vim_project': {'name': project_name},
+                               'is_default': is_default}}
             api.tacker.create_vim(request, vim_arg)
             messages.success(request,
                              _('VIM %s create operation initiated.') %
