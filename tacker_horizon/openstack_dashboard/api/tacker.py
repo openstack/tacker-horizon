@@ -113,3 +113,49 @@ def events_list(request, resource_id):
     LOG.debug("events_list() params=%s events=%s l=%s", params, events,
               len(events))
     return events
+
+
+def vnffg_list(request, **params):
+    LOG.debug("vnffg_list(): params=%s", params)
+    vnffgs = tackerclient(request).list_vnffgs(**params).get('vnffgs')
+    return vnffgs
+
+
+def vnffgd_list(request, **params):
+    LOG.debug("vnffgd_list(): params=%s", params)
+    vnffgds = tackerclient(request).list_vnffgds(**params).get('vnffgds')
+    return vnffgds
+
+
+def create_vnffgd(request, tosca_body=None, **params):
+    LOG.debug("create_vnffgd(): params=%s", params)
+    vnffgd_instance = tackerclient(request).create_vnffgd(body=tosca_body)
+    return vnffgd_instance
+
+
+def create_vnffg(request, vnffg_arg, **params):
+    LOG.debug("create_vnffg(): vnf_arg=%s", str(vnffg_arg))
+    vnffg_instance = tackerclient(request).create_vnffg(body=vnffg_arg)
+    return vnffg_instance
+
+
+def get_vnffgd(request, vnffgd_id):
+    LOG.debug("vnffgd_get(): vnffgd_id=%s", str(vnffgd_id))
+    vnffgd = tackerclient(request).show_vnffgd(vnffgd_id)
+    return vnffgd
+
+
+def get_vnffg(request, vnffg_id):
+    LOG.debug("vnffg_get(): vnffg_id=%s", str(vnffg_id))
+    vnffg_instance = tackerclient(request).show_vnffg(vnffg_id)
+    return vnffg_instance
+
+
+def delete_vnffg(request, vnffg_id):
+    LOG.debug("delete_vnffg():vnffg_id=%s", str(vnffg_id))
+    tackerclient(request).delete_vnffg(vnffg_id)
+
+
+def delete_vnffgd(request, vnffgd_id):
+    LOG.debug("delete_vnffgd():vnffgd_id=%s", str(vnffgd_id))
+    tackerclient(request).delete_vnffgd(vnffgd_id)

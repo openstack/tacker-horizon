@@ -1,5 +1,3 @@
-# Copyright 2015 Brocade Communications System, Inc.
-#
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
 # not use this file except in compliance with the License. You may obtain
 # a copy of the License at
@@ -16,25 +14,12 @@
 from django.utils.translation import ugettext_lazy as _
 
 import horizon
+from tacker_horizon.openstack_dashboard.dashboards.nfv import dashboard
 
 
-class Vnfmgroup(horizon.PanelGroup):
-    slug = "nfvgroup"
-    name = _("VNF Management")
-    panels = ('vnfcatalog', 'vnfmanager',)
+class Vnffgcatalog(horizon.Panel):
+    name = _("VNFFG Catalog")
+    slug = "vnffgcatalog"
 
 
-class Nfvogroup(horizon.PanelGroup):
-    slug = "nfvogroup"
-    name = _("NFV Orchestration")
-    panels = ('vim', 'vnffgcatalog', 'vnffgmanager',)
-
-
-class Nfv(horizon.Dashboard):
-    name = _("NFV")
-    slug = "nfv"
-    panels = (Vnfmgroup, Nfvogroup,)  # Add your panels here.
-    default_panel = 'vnfcatalog'  # Specify the slug of the dashboard's
-    # default panel.
-
-horizon.register(Nfv)
+dashboard.Nfv.register(Vnffgcatalog)
