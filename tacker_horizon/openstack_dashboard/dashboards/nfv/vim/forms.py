@@ -37,6 +37,12 @@ class RegisterVim(forms.SelfHandlingForm):
     password = forms.CharField(label=_("Password"),
                                widget=forms.PasswordInput(render_value=False))
     project_name = forms.CharField(max_length=80, label=_("Project Name"))
+    domain_name = forms.CharField(max_length=80, label=_("Domain Name"),
+                                  help_text=_('Applicable for OpenStack site '
+                                              'running keystone v3. Run '
+                                              'openstack domain list from '
+                                              'CLI to find domain name'),
+                                  required=False)
     is_default = forms.BooleanField(
         label=_("Default"),
         initial=False,
@@ -66,11 +72,15 @@ class RegisterVim(forms.SelfHandlingForm):
             is_default = data['is_default']
             auth_url = data['auth_url']
             vim_type = 'openstack'
+            domain_name = data['domain_name']
             vim_arg = {'vim': {'name': vim_name, 'description': description,
                                'type': vim_type, 'auth_url': auth_url,
                                'auth_cred': {'username': username,
-                                             'password': password},
-                               'vim_project': {'name': project_name},
+                                             'password': password,
+                                             'user_domain_name': domain_name},
+                               'vim_project': {'name': project_name,
+                                               'project_domain_name':
+                                                   domain_name},
                                'is_default': is_default}}
             api.tacker.create_vim(request, vim_arg)
             messages.success(request,
