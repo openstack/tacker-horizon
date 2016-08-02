@@ -17,9 +17,12 @@ from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 
+from horizon import exceptions
 from horizon import forms
 from horizon import tabs
+from horizon.utils import memoized
 
+from tacker_horizon.openstack_dashboard import api as tacker_api
 from tacker_horizon.openstack_dashboard.dashboards.nfv.vim \
     import forms as project_forms
 
@@ -50,3 +53,37 @@ class RegisterVIMView(forms.ModalFormView):
         context = super(RegisterVIMView, self).get_context_data(**kwargs)
         context['submit_url'] = reverse(self.submit_url)
         return context
+
+
+class DetailView(tabs.TabView):
+    tab_group_class = vim_tabs.VIMDetailsTabs
+    template_name = 'nfv/vim/detail.html'
+    redirect_url = 'horizon:nfv:vim:index'
+    page_title = _("VIM Event Details: {{ vim_id }}")
+
+    def get_context_data(self, **kwargs):
+        context = super(DetailView, self).get_context_data(**kwargs)
+        vim = self.get_data()
+        context['vim'] = vim
+        context['vim_id'] = kwargs['vim_id']
+        context['url'] = reverse(self.redirect_url)
+        return context
+
+    @memoized.memoized_method
+    def get_data(self):
+        vim_id = self.kwargs['vim_id']
+
+        try:
+            vim = tacker_api.tacker.get_vim(self.request, vim_id)
+            return vim
+        except Exception:
+            redirect = reverse(self.redirect_url)
+            exceptions.handle(self.request,
+                              _('Unable to retrieve details for '
+                                'VIM "%s".') % vim_id,
+                              redirect=redirect)
+            raise exceptions.Http302(redirect)
+
+    def get_tabs(self, request, *args, **kwargs):
+        vim = self.get_data()
+        return self.tab_group_class(request, vim=vim, **kwargs)

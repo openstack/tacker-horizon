@@ -23,4 +23,5 @@ urlpatterns = patterns(
     'tacker_horizon.openstack_dashboard.dashboards.nfv.vim.views',
     url(r'^$', views.IndexView.as_view(), name='index'),
     url(r'^registervim$', views.RegisterVIMView.as_view(), name='registervim'),
+    url(r'^(?P<vim_id>[^/]+)/$', views.DetailView.as_view(), name='detail'),
 )
