@@ -105,3 +105,11 @@ def vim_list(request, **params):
     LOG.debug("vim_list(): params=%s", params)
     vims = tackerclient(request).list_vims(**params).get('vims')
     return vims
+
+
+def events_list(request, resource_id):
+    params = {'resource_id': resource_id}
+    events = tackerclient(request).list_events(**params).get('events')
+    LOG.debug("events_list() params=%s events=%s l=%s", params, events,
+              len(events))
+    return events

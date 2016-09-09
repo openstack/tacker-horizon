@@ -56,7 +56,8 @@ class RegisterVIMLink(tables.LinkAction):
 
 
 class VIMTable(tables.DataTable):
-    name = tables.Column('name', verbose_name=_("Name"))
+    name = tables.Column('name', verbose_name=_("Name"),
+                         link="horizon:nfv:vim:detail",)
     description = tables.Column('description', verbose_name=_("Description"))
     id = tables.Column('id', verbose_name=_("VIM Id"))
     auth_url = tables.Column('auth_url', verbose_name=_("Auth URL"))
