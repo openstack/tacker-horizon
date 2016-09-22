@@ -26,11 +26,12 @@ LOG = logging.getLogger(__name__)
 class DeployVNFFG(forms.SelfHandlingForm):
     vnffg_name = forms.CharField(max_length=255, label=_("VNFFG Name"))
     vnffgd_id = forms.ChoiceField(label=_("VNFFG Catalog Name"))
-    vnf_mapping = forms.MultipleChoiceField(label=_("VNF Mapping"),
-                                            required=False)
-    symmetrical = forms.BooleanField(label=_("Should a reverse path be "
-                                             "created for the NFP"),
-                                     required=False)
+    vnf_mapping = forms.CharField(label=_("VNF Mapping"),
+                                  required=False)
+    symmetrical = forms.BooleanField(label=_("Symmetrical path"),
+                                     required=False, help_text="Decides"
+                                     " whether to automatically create a"
+                                     " reverse patch for the NFP")
 
     def __init__(self, request, *args, **kwargs):
         super(DeployVNFFG, self).__init__(request, *args, **kwargs)
@@ -51,10 +52,9 @@ class DeployVNFFG(forms.SelfHandlingForm):
         data = super(DeployVNFFG, self).clean()
         return data
 
-    def get_vnf(self, request, vnf):
-        vnfs = api.tacker.vnf_list(self.request)
-        if vnf in vnfs:
-            return vnf
+    def list_vnfs(self, request):
+        vnfs = [vnfs['name'] for vnfs in api.tacker.vnf_list(request)]
+        return vnfs
 
     def handle(self, request, data):
         try:
@@ -66,7 +66,16 @@ class DeployVNFFG(forms.SelfHandlingForm):
                 _vnf_mappings = vnf_mapping.split(",")
                 for mapping in _vnf_mappings:
                     vnfd_name, vnf = mapping.split(":", 1)
-                    _vnf_mapping[vnfd_name] = self.get_vnf(request, vnf)
+                    # Check if specified VNF exists
+                    vnfs = self.list_vnfs(request)
+                    try:
+                        if vnf in vnfs:
+                            _vnf_mapping[vnfd_name] = vnf
+                        else:
+                            raise Exception
+                    except Exception:
+                        exceptions.handle(request, _('Specified VNF %s not'
+                                                     ' found') % vnf)
 
             symmetrical = data['symmetrical']
             vnffg_arg = {'vnffg': {'vnffgd_id': vnffgd_id,

@@ -6,10 +6,8 @@
 {% block modal-body-right %}
     <h3>{% trans "Description:" %}</h3>
     <p>{% blocktrans %} Deploys a VNFFG.<br/>
-        If the VNFFGD template is parameterized,
-        upload a yaml file with values for those parameters.<br/>
-        If the VNFFGD template is not parameterized, any
-        yaml file uploaded will be ignored.<br/>
-        If a configuration yaml file is uploaded, it will be
-        applied to the VNFFG post its successful creation.{% endblocktrans %}</p>
+        VNF Mapping is a list of logical VNFD name to VNF instance name
+        mapping. Example<br/>
+        VNFD1:VNF1, VNFD2: VNF2<br/>
+       {% endblocktrans %}</p>
 {% endblock %}
