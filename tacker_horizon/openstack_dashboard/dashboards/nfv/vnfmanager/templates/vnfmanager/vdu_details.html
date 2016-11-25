@@ -1,28 +1,59 @@
 {% load i18n %}
 <head>
-<style>
-table {
-    border-collapse: collapse;
-    width: 100%;
-}
-th, td {
-    padding: 8px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-</style>
 </head>
 <body>
 <b><h4>{% trans "VNF information" %}<br/></b></h4>
-<table style="width:100%">
-  <tr>
-    <th><b>{% trans "VDU" %}<br/></b></th>
-    <th><b> {% trans "MGMT IP Address" %} <br/></b></th>
-  </tr>
-{% for key, value in vnf.vnf.mgmt_url.items %}
-  <tr>
-    <td>{{ key }}</td> <td>{{ value }}</td>
-  </tr>
-{% endfor %}
-</table>
+<hr class="header_rule">
+<div class="detail">
+  <dl class="dl-horizontal">
+    <dt>{% trans "Name" %}</dt>
+    <dd>{{ vnf.vnf.name }}</dd>
+    <dt>{% trans "ID" %}</dt>
+    <dd>{{ vnf.vnf.id }}</dd>
+    <dt>{% trans "Tenant ID" %}</dt>
+    <dd>{{ vnf.vnf.tenant_id }}</dd>
+    <dt>{% trans "Description" %}</dt>
+    <dd>{{ vnf.vnf.description }}</dd>
+    <dt>{% trans "Status" %}</dt>
+    <dd>{{ vnf.vnf.status|title }}</dd>
+    <dt>{% trans "Created" %}</dt>
+    <dd>{{ vnf.vnf.created_at|parse_isotime }}</dd>
+    <dt>{% trans "Updated" %}</dt>
+    <dd>{{ vnf.vnf.updated_at|parse_isotime }}</dd>
+    <dt>{% trans "Stack ID" %}</dt>
+    <dd>{{ vnf.vnf.instance_id }}</dd>
+    <dt>{% trans "VNFD ID" %}</dt>
+    <dd>{{ vnf.vnf.vnfd_id }}</dd>
+    <dt>{% trans "VIM ID" %}</dt>
+    <dd>{{ vnf.vnf.vim_id }}</dd>
+    <dt>{% trans "Error reason" %}</dt>
+    <dd>{{ vnf.vnf.error_reason }}</dd>
+  </dl>
+
+  <h4>{% trans "Mgmt IP Addresses" %}</h4>
+  <hr class="header_rule">
+  <dl class="dl-horizontal">
+    {% for key, value in vnf.vnf.mgmt_url.items %}
+      <dt>{{ key|title }}</dt>
+      <dd>{{ value }}</dd>
+    {% endfor %}
+  </dl>
+
+  <h4>{% trans "Placement Attributes" %}</h4>
+  <hr class="header_rule">
+  <dl class="dl-horizontal">
+    {% for key, value in vnf.vnf.placement_attr.items %}
+      <dt>{{ key|title }}</dt>
+      <dd>{{ value }}</dd>
+    {% endfor %}
+  </dl>
+
+  <h4>{% trans "Attributes" %}</h4>
+  <hr class="header_rule">
+    <pre style="white-space:pre-line;">
+      {{ vnf.vnf.attributes }}
+    </pre>
+
+</div>
+
 </body>
