@@ -62,13 +62,13 @@ class OnBoardVNF(forms.SelfHandlingForm):
         # conditions. Code defensively for it here...
         toscal_file = data.get('toscal_file', None)
         toscal_raw = data.get('direct_input', None)
-
-        if toscal_raw and toscal_file:
+        source_type = data.get("source_type")
+        if source_type == "file" and not toscal_file:
             raise ValidationError(
-                _("Cannot specify both file and direct input."))
-        if not toscal_raw and not toscal_file:
+                _("No TOSCA template file selected."))
+        if source_type == "raw" and not toscal_raw:
             raise ValidationError(
-                _("No input was provided for the namespace content."))
+                _("No direct input specified."))
 
         if toscal_file and not toscal_file.name.endswith(('.yaml', '.csar')):
             raise ValidationError(_("Only .yaml or .csar file uploads \
