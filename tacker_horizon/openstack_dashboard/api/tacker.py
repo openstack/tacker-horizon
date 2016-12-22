@@ -159,3 +159,49 @@ def delete_vnffg(request, vnffg_id):
 def delete_vnffgd(request, vnffgd_id):
     LOG.debug("delete_vnffgd():vnffgd_id=%s", str(vnffgd_id))
     tackerclient(request).delete_vnffgd(vnffgd_id)
+
+
+def create_nsd(request, tosca_body=None, **params):
+    LOG.debug("create_nsd(): params=%s", params)
+    nsd_instance = tackerclient(request).create_nsd(body=tosca_body)
+    return nsd_instance
+
+
+def nsd_list(request, **params):
+    LOG.debug("nsd_list(): params=%s", params)
+    nsds = tackerclient(request).list_nsds(**params).get('nsds')
+    return nsds
+
+
+def get_nsd(request, nsd_id):
+    LOG.debug("nsd_get(): nsd_id=%s", str(nsd_id))
+    nsd = tackerclient(request).show_vnfd(nsd_id)
+    return nsd
+
+
+def delete_nsd(request, nsd_id):
+    LOG.debug("delete_nsd():nsd_id=%s", str(nsd_id))
+    tackerclient(request).delete_nsd(nsd_id)
+
+
+def get_ns(request, ns_id):
+    LOG.debug("ns_get(): ns_id=%s", str(ns_id))
+    ns_instance = tackerclient(request).show_ns(ns_id)
+    return ns_instance
+
+
+def delete_ns(request, ns_id):
+    LOG.debug("delete_ns():ns_id=%s", str(ns_id))
+    tackerclient(request).delete_ns(ns_id)
+
+
+def ns_list(request, **params):
+    LOG.debug("ns_list(): params=%s", params)
+    nss = tackerclient(request).list_nss(**params).get('nss')
+    return nss
+
+
+def create_ns(request, ns_arg, **params):
+    LOG.debug("create_ns(): ns_arg=%s", str(ns_arg))
+    ns_instance = tackerclient(request).create_ns(body=ns_arg)
+    return ns_instance

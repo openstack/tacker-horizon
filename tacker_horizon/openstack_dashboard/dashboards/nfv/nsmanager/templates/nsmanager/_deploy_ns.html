@@ -1,0 +1,15 @@
+{% extends "horizon/common/_modal_form.html" %}
+{% load i18n %}
+
+{% block form_attrs %}enctype="multipart/form-data"{% endblock %}
+
+{% block modal-body-right %}
+    <h3>{% trans "Description:" %}</h3>
+    <p>{% blocktrans %} Deploys a NS.<br/>
+        If the NSD template is parameterized,
+        upload a yaml file with values for those parameters.<br/>
+        If the NSD template is not parameterized, any
+        yaml file uploaded will be ignored.<br/>
+        If a configuration yaml file is uploaded, it will be
+        applied to the NS post its successful creation.{% endblocktrans %}</p>
+{% endblock %}
