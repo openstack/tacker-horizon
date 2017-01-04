@@ -47,26 +47,23 @@ class VNFCatalogTab(tabs.TableTab):
             #            tables.VNFCatalogTable._meta.pagination_param, None)
 
             self._has_more = False
-            instances = []
+            catalogs = []
             vnfds = api.tacker.vnfd_list(self.request)
             for vnfd in vnfds:
-                services = vnfd['service_types']
-                vnfd_services = []
-                for s in services:
-                    if s['service_type'] != 'vnfd':
-                        vnfd_services.append(s['service_type'])
-                vnfds_services_string = ""
-                if len(vnfd_services) > 0:
-                    vnfds_services_string = ', '.join(
-                        [str(item) for item in vnfd_services])
+                s_types = [s_type for s_type in vnfd['service_types']
+                           if s_type != 'vnfd']
+                s_types_string = ""
+                if len(s_types) > 0:
+                    s_types_string = ', '.join(
+                        [str(item) for item in s_types])
                 item = VNFCatalogItem(vnfd['name'],
                                       vnfd['description'],
-                                      vnfds_services_string, vnfd['id'])
-                instances.append(item)
-            return instances
+                                      s_types_string, vnfd['id'])
+                catalogs.append(item)
+            return catalogs
         except Exception:
             self._has_more = False
-            error_message = _('Unable to get instances')
+            error_message = _('Unable to get vnf catalogs')
             exceptions.handle(self.request, error_message)
 
             return []
