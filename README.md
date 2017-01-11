@@ -21,7 +21,7 @@ Installation
 2. Copy files to Horizon tree
 
     ```
-    cp openstack_dashboard_extensions/* /opt/stack/horizon/openstack_dashboard/enabled/
+    cp tacker_horizon/enabled/* /opt/stack/horizon/openstack_dashboard/enabled/
     ```
 
 3. Restart the apache webserver
