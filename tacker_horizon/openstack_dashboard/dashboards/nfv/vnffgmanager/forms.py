@@ -64,10 +64,9 @@ class DeployVNFFG(forms.SelfHandlingForm):
             _vnf_mapping = dict()
             if vnf_mapping:
                 _vnf_mappings = vnf_mapping.split(",")
+                vnfs = self.list_vnfs(request)
                 for mapping in _vnf_mappings:
                     vnfd_name, vnf = mapping.split(":", 1)
-                    # Check if specified VNF exists
-                    vnfs = self.list_vnfs(request)
                     try:
                         if vnf in vnfs:
                             _vnf_mapping[vnfd_name] = vnf
