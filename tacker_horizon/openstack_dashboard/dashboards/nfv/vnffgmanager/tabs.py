@@ -45,10 +45,10 @@ class VNFFGManagerTab(tabs.TableTab):
                 except KeyError:
                     vnffg_desc_str = ""
 
-                obj = VNFFGManagerItem(vnffg['name'],
+                obj = VNFFGManagerItem(vnffg['id'],
+                                       vnffg['name'],
                                        vnffg_desc_str,
-                                       vnffg['status'],
-                                       vnffg['id'])
+                                       vnffg['status'])
                 VNFFGManagerItemList.add_item(obj)
             return VNFFGManagerItemList.VNFFGLIST_P
         except Exception:
@@ -65,6 +65,16 @@ class VNFFGManagerTabs(tabs.TabGroup):
     sticky = True
 
 
+class VNFFGDetailsTab(tabs.Tab):
+    name = _("VNFFG Detail")
+    slug = "VNFFG_Details"
+    template_name = "nfv/vnffgmanager/vnffg_details.html"
+
+    def get_context_data(self, request):
+        return {'vnffg': self.tab_group.kwargs['vnffg']}
+
+
 class VNFFGDetailsTabs(tabs.TabGroup):
     slug = "VNFFG_details"
+    tabs = (VNFFGDetailsTab,)
     sticky = True

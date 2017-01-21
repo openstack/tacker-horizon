@@ -1,0 +1,31 @@
+{% load i18n %}
+<head>
+<style>
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+</style>
+</head>
+<body>
+<b><h4>{% trans "VNFFG information" %}<br/></b></h4>
+<table style="width:100%">
+  <tr>
+    <th><b>{% trans "Id" %}<br/></b></th>
+    <th><b> {% trans "Name" %} <br/></b></th>
+    <th><b> {% trans "Description" %} <br/></b></th>
+    <th><b> {% trans "Status" %} <br/></b></th>
+  </tr>
+  <tr>
+    <td>{{ vnffg.vnffg.id }}</td>
+    <td>{{ vnffg.vnffg.name }}</td>
+    <td>{{ vnffg.vnffg.description }}</td>
+    <td>{{ vnffg.vnffg.status }}</td>
+  </tr>
+</table>
+</body>
