@@ -13,6 +13,7 @@
 # under the License.
 
 import logging
+import yaml
 
 from django.forms import ValidationError
 from django.utils.translation import ugettext_lazy as _
@@ -32,7 +33,29 @@ class DeployVNF(forms.SelfHandlingForm):
                                   attrs={'rows': 4}),
                                   label=_("Description"),
                                   required=False)
-    vnfd_id = forms.ChoiceField(label=_("VNF Catalog Name"))
+    vnfd_id = forms.ChoiceField(label=_("VNF Catalog Name"),
+                                required=False)
+    template_source = forms.ChoiceField(
+        label=_('VNFD template Source'),
+        required=False,
+        choices=[('file', _('File')),
+                 ('raw', _('Direct Input'))],
+        widget=forms.Select(
+            attrs={'class': 'switchable', 'data-slug': 'template'}))
+    template_file = forms.FileField(
+        label=_('VNFD template File'),
+        help_text=_('VNFD template to create VNF'),
+        widget=forms.FileInput(
+            attrs={'class': 'switched', 'data-switch-on': 'template',
+                   'data-template-file': _('TOSCA Template File')}),
+        required=False)
+    template_input = forms.CharField(
+        label=_('VNFD template'),
+        help_text=_('The YAML formatted contents of VNFD template.'),
+        widget=forms.widgets.Textarea(
+            attrs={'class': 'switched', 'data-switch-on': 'template',
+                   'data-template-raw': _('VNFD template')}),
+        required=False)
     vim_id = forms.ChoiceField(label=_("VIM Name"), required=False)
     region_name = forms.CharField(label=_("Region Name"), required=False)
     source_type = forms.ChoiceField(
@@ -88,7 +111,8 @@ class DeployVNF(forms.SelfHandlingForm):
         super(DeployVNF, self).__init__(request, *args, **kwargs)
 
         try:
-            vnfd_list = api.tacker.vnfd_list(request)
+            vnfd_list = api.tacker.vnfd_list(request,
+                                             template_source='onboarded')
             available_choices_vnfd = [(vnf['id'], vnf['name']) for vnf in
                                       vnfd_list]
         except Exception as e:
@@ -114,6 +138,26 @@ class DeployVNF(forms.SelfHandlingForm):
 
     def clean(self):
         data = super(DeployVNF, self).clean()
+
+        template_file = data.get('template_file', None)
+        template_raw = data.get('template_input', None)
+
+        if template_raw and template_file:
+            raise ValidationError(
+                _("Cannot specify both file and direct input."))
+
+        if template_file and not template_file.name.endswith('.yaml'):
+            raise ValidationError(
+                _("Please upload .yaml file only."))
+
+        if template_file:
+            data['vnfd_template'] = yaml.load(template_file,
+                                              Loader=yaml.SafeLoader)
+        elif template_raw:
+            data['vnfd_template'] = yaml.load(data['template_input'],
+                                              Loader=yaml.SafeLoader)
+        else:
+            data['vnfd_template'] = None
 
         param_file = data.get('param_file', None)
         param_raw = data.get('direct_input', None)
@@ -156,14 +200,25 @@ class DeployVNF(forms.SelfHandlingForm):
         try:
             vnf_name = data['vnf_name']
             description = data['description']
-            vnfd_id = data['vnfd_id']
+            vnfd_id = data.get('vnfd_id')
+            vnfd_template = data.get('vnfd_template')
             vim_id = data['vim_id']
             region_name = data['region_name']
             param_val = data['param_values']
             config_val = data['config_values']
+
+            if (vnfd_id == '') and (vnfd_template is None):
+                raise ValidationError(_("Both VNFD id and template cannot be "
+                                        "empty. Please specify one of them"))
+
+            if (vnfd_id != '') and (vnfd_template is not None):
+                raise ValidationError(_("Both VNFD id and template cannot be "
+                                        "specified. Please specify any one"))
+
             vnf_arg = {'vnf': {'vnfd_id': vnfd_id, 'name':  vnf_name,
                                'description': description,
-                               'vim_id': vim_id}}
+                               'vim_id': vim_id,
+                               'vnfd_template': vnfd_template}}
             if region_name:
                 vnf_arg.setdefault('placement_attr', {})[
                     region_name] = region_name
