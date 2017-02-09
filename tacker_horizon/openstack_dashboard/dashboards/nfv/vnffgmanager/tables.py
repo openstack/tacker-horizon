@@ -25,10 +25,10 @@ from tackerclient.common.exceptions import NotFound
 
 
 class VNFFGManagerItem(object):
-    def __init__(self, name, description, vnffgs, status):
+    def __init__(self, id, name, description, status):
+        self.id = id
         self.name = name
         self.description = description
-        self.vnffgs = vnffgs
         self.status = status
 
 
