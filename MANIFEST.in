@@ -1,0 +1,12 @@
+include AUTHORS
+include ChangeLog
+include LICENSE
+include manage.py
+include README.rst
+
+recursive-include tacker_horizon *.html *.css *.js
+
+exclude .gitignore
+exclude .gitreview
+
+global-exclude *.pyc
