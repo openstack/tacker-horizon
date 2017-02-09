@@ -48,7 +48,8 @@ class VNFCatalogTab(tabs.TableTab):
 
             self._has_more = False
             catalogs = []
-            vnfds = api.tacker.vnfd_list(self.request)
+            vnfds = api.tacker.vnfd_list(self.request,
+                                         template_source="onboarded")
             for vnfd in vnfds:
                 s_types = [s_type for s_type in vnfd['service_types']
                            if s_type != 'vnfd']
