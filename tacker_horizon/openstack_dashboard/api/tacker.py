@@ -14,9 +14,8 @@
 
 from __future__ import absolute_import
 
-import logging
-
 from django.conf import settings
+from oslo_log import log as logging
 from tackerclient.v1_0 import client as tacker_client
 
 from horizon.utils.memoized import memoized  # noqa

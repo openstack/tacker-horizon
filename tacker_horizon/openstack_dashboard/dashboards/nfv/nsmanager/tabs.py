@@ -10,8 +10,6 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-import logging
-
 from django.utils.translation import ugettext_lazy as _
 from horizon import exceptions
 from horizon import tabs
@@ -19,8 +17,6 @@ from horizon import tabs
 from tacker_horizon.openstack_dashboard import api
 from tacker_horizon.openstack_dashboard.dashboards.nfv.nsmanager import tables
 from tacker_horizon.openstack_dashboard.dashboards.nfv import utils
-
-LOG = logging.getLogger(__name__)
 
 
 class NSManagerTab(tabs.TableTab):
