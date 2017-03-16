@@ -12,8 +12,6 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-import logging
-
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.debug import sensitive_variables
 
@@ -22,8 +20,6 @@ from horizon import forms
 from horizon import messages
 
 from tacker_horizon.openstack_dashboard import api
-
-LOG = logging.getLogger(__name__)
 
 
 class RegisterVim(forms.SelfHandlingForm):

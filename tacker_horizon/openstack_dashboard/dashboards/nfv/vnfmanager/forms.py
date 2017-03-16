@@ -12,11 +12,11 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-import logging
 import yaml
 
 from django.forms import ValidationError
 from django.utils.translation import ugettext_lazy as _
+from oslo_log import log as logging
 
 from horizon import exceptions
 from horizon import forms
