@@ -174,7 +174,7 @@ def nsd_list(request, **params):
 
 def get_nsd(request, nsd_id):
     LOG.debug("nsd_get(): nsd_id=%s", str(nsd_id))
-    nsd = tackerclient(request).show_vnfd(nsd_id)
+    nsd = tackerclient(request).show_nsd(nsd_id)
     return nsd
 
 
