@@ -11,16 +11,13 @@
 # under the License.
 
 
-from django.conf.urls import patterns
 from django.conf.urls import url
 
 from tacker_horizon.openstack_dashboard.dashboards.nfv.vnffgmanager \
     import views
 
-
-urlpatterns = patterns(
-    'tacker_horizon.openstack_dashboard.dashboards.nfv.vnffgmanager.views',
+urlpatterns = [
     url(r'^$', views.IndexView.as_view(), name='index'),
     url(r'^deployvnffg$', views.DeployVNFFGView.as_view(), name='deployvnffg'),
     url(r'^(?P<vnffg_id>[^/]+)/$', views.DetailView.as_view(), name='detail'),
-)
+]
