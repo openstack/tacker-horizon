@@ -16,6 +16,7 @@ from __future__ import absolute_import
 
 from django.conf import settings
 from oslo_log import log as logging
+from oslo_utils import strutils
 from tackerclient.v1_0 import client as tacker_client
 
 from horizon.utils.memoized import memoized  # noqa
@@ -84,7 +85,7 @@ def delete_vnfd(request, vnfd_id):
 
 
 def create_vim(request, vim_arg):
-    LOG.debug("create_vim(): vim_arg=%s", str(vim_arg))
+    LOG.debug("create_vim(): vim_arg=%s", strutils.mask_password(vim_arg))
     vim_instance = tackerclient(request).create_vim(body=vim_arg)
     return vim_instance
 
