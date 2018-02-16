@@ -25,7 +25,7 @@ from tacker_horizon.openstack_dashboard.dashboards.nfv.vim import tables
 
 class VIMItem(object):
     def __init__(self, name, description, is_default, regions, vim_id,
-                 auth_url, user, project, status):
+                 auth_url, user, project, status, vim_type):
         self.id = vim_id
         self.name = name
         self.description = description
@@ -35,6 +35,7 @@ class VIMItem(object):
         self.user = user
         self.project = project
         self.status = status
+        self.type = vim_type
 
 
 class VIMTab(tabs.TableTab):
@@ -56,20 +57,24 @@ class VIMTab(tabs.TableTab):
                 auth_cred = vim['auth_cred']
                 placement_attr = vim['placement_attr']
                 vim_regions = ','.join(placement_attr['regions'])
-                user = auth_cred['username'] if auth_cred[
-                    'username'] else auth_cred['user_id']
+                user = "<Bearer token>"
+                if 'bearer_token' not in auth_cred.keys():
+                    user = auth_cred['username'] if auth_cred[
+                        'username'] else auth_cred['user_id']
                 project_info = vim['vim_project']
                 project = project_info['name'] if project_info[
                     'name'] else project_info['id']
                 status = vim["status"]
                 is_default = vim['is_default']
+                vim_type = vim["type"]
                 item = VIMItem(name=vim.get('name', ''),
                                description=vim.get('description', ''),
                                is_default=is_default,
                                regions=vim_regions,
                                vim_id=vim.get('id', ''),
                                auth_url=vim.get('auth_url', ''),
-                               user=user, project=project, status=status)
+                               user=user, project=project, status=status,
+                               vim_type=vim_type)
                 instances.append(item)
             return instances
         except Exception:

@@ -14,6 +14,7 @@
 
 DASHBOARD = 'nfv'
 DISABLED = False
+AUTO_DISCOVER_STATIC_FILES = True
 ADD_INSTALLED_APPS = [
     'tacker_horizon.openstack_dashboard.dashboards.nfv',
 ]

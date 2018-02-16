@@ -15,6 +15,7 @@
 from __future__ import absolute_import
 
 from django.conf import settings
+from django.utils.translation import ugettext_lazy as _
 from oslo_log import log as logging
 from oslo_utils import strutils
 from tackerclient.v1_0 import client as tacker_client
@@ -24,6 +25,23 @@ from openstack_dashboard.api import base
 
 
 LOG = logging.getLogger(__name__)
+
+SUPPORTED_VIM_TYPES = (
+    ('openstack', 'OpenStack'),
+    ('kubernetes', 'Kubernetes')
+)
+
+AUTH_METHODS = (
+    ('basic', _('Basic')),
+    ('bearer_token', _('Bearer Token'))
+)
+
+CERT_TRUE_TYPE = 'True'
+CERT_FALSE_TYPE = 'False'
+CERT_VERIFY_TYPES = (
+    (CERT_TRUE_TYPE, _("True")),
+    (CERT_FALSE_TYPE, _("False"))
+)
 
 
 @memoized

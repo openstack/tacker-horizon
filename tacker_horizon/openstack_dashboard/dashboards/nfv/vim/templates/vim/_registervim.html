@@ -7,3 +7,7 @@
     <h3>{% trans "Description:" %}</h3>
     <p>{% trans "Registers a VIM." %}</p>
 {% endblock %}
+
+{% block modal-js %}
+    <script src='{{ STATIC_URL }}nfv/js/nfv.vim.reg.js' type='text/javascript' charset='utf-8'></script>
+{% endblock %}
