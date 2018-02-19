@@ -60,6 +60,7 @@ class VIMTable(tables.DataTable):
                          link="horizon:nfv:vim:detail",)
     description = tables.Column('description', verbose_name=_("Description"))
     id = tables.Column('id', verbose_name=_("VIM Id"))
+    is_default = tables.Column('is_default', verbose_name=_("Default"))
     auth_url = tables.Column('auth_url', verbose_name=_("Auth URL"))
     regions = tables.Column('regions', verbose_name=_("Regions"))
     user = tables.Column('user', verbose_name=_("User"))

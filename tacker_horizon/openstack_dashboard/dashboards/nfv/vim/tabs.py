@@ -24,11 +24,12 @@ from tacker_horizon.openstack_dashboard.dashboards.nfv.vim import tables
 
 
 class VIMItem(object):
-    def __init__(self, name, description, regions, vim_id, auth_url,
-                 user, project, status):
+    def __init__(self, name, description, is_default, regions, vim_id,
+                 auth_url, user, project, status):
         self.id = vim_id
         self.name = name
         self.description = description
+        self.is_default = is_default
         self.regions = regions
         self.auth_url = auth_url
         self.user = user
@@ -61,8 +62,10 @@ class VIMTab(tabs.TableTab):
                 project = project_info['name'] if project_info[
                     'name'] else project_info['id']
                 status = vim["status"]
+                is_default = vim['is_default']
                 item = VIMItem(name=vim.get('name', ''),
                                description=vim.get('description', ''),
+                               is_default=is_default,
                                regions=vim_regions,
                                vim_id=vim.get('id', ''),
                                auth_url=vim.get('auth_url', ''),
