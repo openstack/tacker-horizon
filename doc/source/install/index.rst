@@ -1,24 +1,9 @@
-========================
-Team and repository tags
-========================
+==================
+Installation Guide
+==================
 
-.. image:: https://governance.openstack.org/tc/badges/tacker-horizon.svg
-          :target: https://governance.openstack.org/tc/reference/tags/index.html
-
-.. Change things from this point on
-
-Tacker Horizon UI
-=================
-
-Horizon UI for Tacker VNF Manager
-
-* License: Apache license
-* Source: https://git.openstack.org/cgit/openstack/tacker-horizon
-* Bugs: https://bugs.launchpad.net/tacker
-* Tacker-horizon docs: https://docs.openstack.org/tacker-horizon/latest/
-
-Installation
-============
+Manual Installation
+-------------------
 
 **Note:** The paths we are using for configuration files in these steps
 are with reference to Ubuntu Operating System. The paths may vary for
@@ -26,8 +11,7 @@ other Operating Systems.
 
 The branch_name which is used in commands, specify the branch_name
 as stable/<branch> for any stable branch installation. For eg:
-stable/queens, stable/pike. If unspecified the default will be
-master branch.
+stable/queens. If unspecified the default will be master branch.
 
 1. Clone tacker-horizon repository.
 
@@ -76,3 +60,12 @@ and above), use the following command instead:
     sudo systemctl restart apache2
 
 
+Install via Devstack
+--------------------
+
+The tacker-horizon is automatically enabled when tacker server
+is installed.
+
+.. seealso::
+
+   https://docs.openstack.org/tacker/latest/install/devstack.html
