@@ -17,9 +17,9 @@ import horizon
 from tacker_horizon.openstack_dashboard.dashboards.nfv import dashboard
 
 
-class Vnfmanager(horizon.Panel):
+class Vnffgmanager(horizon.Panel):
     name = _("VNFFG Manager")
     slug = "vnffgmanager"
 
 
-dashboard.Nfv.register(Vnfmanager)
+dashboard.Nfv.register(Vnffgmanager)
