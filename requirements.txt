@@ -10,3 +10,8 @@
 oslo.log>=3.36.0 # Apache-2.0
 pbr!=2.1.0,>=2.0.0 # Apache-2.0
 python-tackerclient>=0.8.0 # Apache-2.0
+
+# This will be installed from git in OpenStack CI if the job setting
+# required-projects for horizon:
+horizon>=13.0.0 # Apache-2.0
+
