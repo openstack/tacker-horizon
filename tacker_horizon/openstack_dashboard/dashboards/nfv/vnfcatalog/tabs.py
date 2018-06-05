@@ -24,11 +24,11 @@ from tacker_horizon.openstack_dashboard.dashboards.nfv.vnfcatalog import tables
 
 
 class VNFCatalogItem(object):
-    def __init__(self, name, description, services, vnfd_id):
+    def __init__(self, name, description, service_types, vnfd_id):
         self.id = vnfd_id
         self.name = name
         self.description = description
-        self.services = services
+        self.service_types = service_types
 
 
 class VNFCatalogTab(tabs.TableTab):
@@ -43,16 +43,13 @@ class VNFCatalogTab(tabs.TableTab):
 
     def get_vnfcatalog_data(self):
         try:
-            # marker = self.request.GET.get(
-            #            tables.VNFCatalogTable._meta.pagination_param, None)
-
             self._has_more = False
             catalogs = []
             vnfds = api.tacker.vnfd_list(self.request,
                                          template_source="onboarded")
+
             for vnfd in vnfds:
-                s_types = [s_type for s_type in vnfd['service_types']
-                           if s_type != 'vnfd']
+                s_types = [s_type for s_type in vnfd['service_types']]
                 s_types_string = ""
                 if len(s_types) > 0:
                     s_types_string = ', '.join(

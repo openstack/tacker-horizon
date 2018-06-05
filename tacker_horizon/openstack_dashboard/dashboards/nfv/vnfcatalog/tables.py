@@ -61,7 +61,7 @@ class VNFCatalogTable(tables.DataTable):
                          verbose_name=_("Name"))
     description = tables.Column('description',
                                 verbose_name=_("Description"))
-    services = tables.Column('service types',
+    services = tables.Column('service_types',
                              verbose_name=_("Service Types"))
     id = tables.Column('id',
                        verbose_name=_("Catalog Id"))
