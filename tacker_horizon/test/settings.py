@@ -43,16 +43,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.messages',
     'django.contrib.humanize',
-    'django_nose',
     'openstack_auth',
     'compressor',
     'horizon',
     'openstack_dashboard',
     'tacker_horizon',
 )
-
-NOSE_ARGS = ['--nocapture',
-             '--nologcapture',
-             '--cover-package=tacker_horizon',
-             '--cover-inclusive',
-             '--all-modules']

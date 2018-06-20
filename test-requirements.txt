@@ -14,12 +14,5 @@ django-nose>=1.4.4 # BSD
 mock>=2.0.0 # BSD
 mox3>=0.20.0 # Apache-2.0
 nodeenv>=0.9.4 # BSD
-nose>=1.3.7 # LGPL
-nose-exclude>=0.3.0 # LGPL
-nosehtmloutput>=0.0.3 # Apache-2.0
-nosexcover>=1.0.10 # BSD
-openstack.nose-plugin>=0.7 # Apache-2.0
-selenium>=2.50.1 # Apache-2.0
-testtools>=2.2.0 # MIT
 # This also needs xvfb library installed on your OS
 xvfbwrapper>=0.1.3 #license: MIT
