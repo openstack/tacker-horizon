@@ -19,7 +19,6 @@ from horizon.utils import secret_key as secret_key_utils
 from openstack_dashboard.test.settings import *  # noqa
 
 DEBUG = True
-TEMPLATE_DEBUG = DEBUG
 
 TEST_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_PATH = os.path.abspath(os.path.join(TEST_DIR, ".."))
@@ -32,9 +31,6 @@ STATIC_URL = '/static/'
 SECRET_KEY = secret_key_utils.generate_or_read_from_file(
     os.path.join(TEST_DIR, '.secret_key_store'))
 ROOT_URLCONF = 'tacker_horizon.test.urls'
-TEMPLATE_DIRS = (
-    os.path.join(TEST_DIR, 'templates'),
-)
 
 INSTALLED_APPS = (
     'django.contrib.contenttypes',
@@ -49,3 +45,25 @@ INSTALLED_APPS = (
     'openstack_dashboard',
     'tacker_horizon',
 )
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(TEST_DIR, 'templates')
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.i18n',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.contrib.messages.context_processors.messages',
+            ],
+            'debug': DEBUG,
+        },
+    },
+]
