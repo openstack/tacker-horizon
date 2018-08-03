@@ -18,5 +18,7 @@ from openstack_dashboard.test import helpers as test
 
 class VimmanagerTests(test.TestCase):
     # Unit tests for vimmanager.
+    use_mox = False
+
     def test_me(self):
         self.assertTrue(1 + 1 == 2)

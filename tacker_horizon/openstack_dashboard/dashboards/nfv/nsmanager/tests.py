@@ -15,5 +15,7 @@ from openstack_dashboard.test import helpers as test
 
 
 class NsmanagerTests(test.TestCase):
+    use_mox = False
+
     def test_me(self):
         self.assertTrue(1 + 1 == 2)
