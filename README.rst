@@ -27,52 +27,40 @@ other Operating Systems.
 The branch_name which is used in commands, specify the branch_name
 as stable/<branch> for any stable branch installation. For eg:
 stable/queens, stable/pike. If unspecified the default will be
-master branch.
+master branch. The installation of tacker-horizon is as following
+steps.
 
 Clone tacker-horizon repository.
+   ::
 
-  ::
-
-    cd ~/
-    git clone https://github.com/openstack/tacker-horizon -b <branch_name>
-
+     cd ~/
+     git clone https://github.com/openstack/tacker-horizon -b <branch_name>
 
 Install horizon module.
+   ::
 
-  ::
-
-    cd tacker-horizon
-    sudo python setup.py install
-
+     cd tacker-horizon
+     sudo python setup.py install
 
 Enable tacker horizon in dashboard.
+   ::
 
-  ::
-
-    sudo cp tacker_horizon/enabled/* \
-        /opt/stack/horizon/openstack_dashboard/enabled/
-
+     sudo cp tacker_horizon/enabled/* \
+         /opt/stack/horizon/openstack_dashboard/enabled/
 
 Collect and compress static files.
+   ::
 
-  ::
+     ./manage.py collectstatic --noinput
+     echo yes | ./manage.py compress
 
-    ./manage.py collectstatic --noinput
-    echo yes | ./manage.py compress
+Restart Apache server using Upstart.
+   ::
 
+     sudo service apache2 restart
 
-Restart Apache server.
+Or restart Apache server using Systemd.
+   ::
 
-  ::
-
-    sudo service apache2 restart
-
-
-If your server is using Systemd instead of Upstart (e.g Ubuntu 15.10
-and above), use the following command instead:
-
-  ::
-
-    sudo systemctl restart apache2
-
+     sudo systemctl restart apache2
 
