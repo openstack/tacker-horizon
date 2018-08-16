@@ -29,7 +29,7 @@ as stable/<branch> for any stable branch installation. For eg:
 stable/queens, stable/pike. If unspecified the default will be
 master branch.
 
-1. Clone tacker-horizon repository.
+Clone tacker-horizon repository.
 
   ::
 
@@ -37,7 +37,7 @@ master branch.
     git clone https://github.com/openstack/tacker-horizon -b <branch_name>
 
 
-2. Install horizon module.
+Install horizon module.
 
   ::
 
@@ -45,7 +45,7 @@ master branch.
     sudo python setup.py install
 
 
-3. Enable tacker horizon in dashboard.
+Enable tacker horizon in dashboard.
 
   ::
 
@@ -53,7 +53,7 @@ master branch.
         /opt/stack/horizon/openstack_dashboard/enabled/
 
 
-4. Collect and compress static files.
+Collect and compress static files.
 
   ::
 
@@ -61,7 +61,7 @@ master branch.
     echo yes | ./manage.py compress
 
 
-5. Restart Apache server.
+Restart Apache server.
 
   ::
 
