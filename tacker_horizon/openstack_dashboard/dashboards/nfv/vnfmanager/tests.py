@@ -18,7 +18,6 @@ from openstack_dashboard.test import helpers as test
 
 class VnfmanagerTests(test.TestCase):
     # Unit tests for vnfmanager.
-    use_mox = False
 
     def test_me(self):
         self.assertTrue(1 + 1 == 2)
