@@ -32,8 +32,8 @@ Project Info
 ------------
 
 * Free software: under the `Apache license <http://www.apache.org/licenses/LICENSE-2.0>`_
-* Tacker service: http://git.openstack.org/cgit/openstack/tacker
+* Tacker service: https://git.openstack.org/cgit/openstack/tacker
 * Tacker-horizon library: https://git.openstack.org/cgit/openstack/tacker-horizon
-* Bugs tracker: http://bugs.launchpad.net/tacker
+* Bugs tracker: https://bugs.launchpad.net/tacker
 * Blueprints: https://blueprints.launchpad.net/tacker
 * Code review: https://review.openstack.org/#/q/status:open+project:openstack/tacker-horizon,n,z
