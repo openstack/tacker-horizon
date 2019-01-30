@@ -93,8 +93,9 @@ class DetailView(tabs.TabView):
 
         try:
             vnffg = tacker_api.tacker.get_vnffg(self.request, vnffg_id)
-            vnffg["vnffg"]["mgmt_url"] = json.loads(vnffg["vnffg"]["mgmt_url"]) if \
-                vnffg["vnffg"].get("mgmt_url") else None
+            vnffg["vnffg"]["mgmt_url"] = json.loads(
+                vnffg["vnffg"]["mgmt_url"]) if vnffg["vnffg"].get(
+                "mgmt_url") else None
             return vnffg
         except ValueError as e:
             msg = _('Cannot decode json : %s') % e
