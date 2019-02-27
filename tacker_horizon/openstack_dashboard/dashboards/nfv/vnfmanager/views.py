@@ -12,12 +12,11 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-import json
-
 from django.urls import reverse
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from oslo_log import log as logging
+from oslo_serialization import jsonutils
 
 from horizon import exceptions
 from horizon import forms
@@ -95,8 +94,8 @@ class DetailView(tabs.TabView):
 
         try:
             vnf = tacker_api.tacker.get_vnf(self.request, vnf_id)
-            vnf["vnf"]["mgmt_url"] = json.loads(vnf["vnf"]["mgmt_url"]) if \
-                vnf["vnf"]["mgmt_url"] else None
+            vnf["vnf"]["mgmt_url"] = jsonutils.loads(vnf["vnf"]["mgmt_url"]) \
+                if vnf["vnf"]["mgmt_url"] else None
             return vnf
         except ValueError as e:
             msg = _('Cannot decode json : %s') % e
