@@ -18,7 +18,7 @@ stable/queens. If unspecified the default will be master branch.
   ::
 
     cd ~/
-    git clone https://github.com/openstack/tacker-horizon -b <branch_name>
+    git clone https://opendev.org/openstack/tacker-horizon -b <branch_name>
 
 
 2. Install horizon module.

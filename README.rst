@@ -13,7 +13,7 @@ Tacker Horizon UI
 Horizon UI for Tacker VNF Manager
 
 * License: Apache license
-* Source: https://git.openstack.org/cgit/openstack/tacker-horizon
+* Source: https://opendev.org/openstack/tacker-horizon
 * Bugs: https://bugs.launchpad.net/tacker
 * Tacker-horizon docs: https://docs.openstack.org/tacker-horizon/latest/
 
@@ -34,7 +34,7 @@ Clone tacker-horizon repository.
    ::
 
      cd ~/
-     git clone https://github.com/openstack/tacker-horizon -b <branch_name>
+     git clone https://opendev.org/openstack/tacker-horizon -b <branch_name>
 
 Install horizon module.
    ::

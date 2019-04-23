@@ -6,7 +6,7 @@ Horizon UI for NFV Orchestration (Tacker)
 
 * License: `Apache license <http://www.apache.org/licenses/LICENSE-2.0>`_
 * Tacker-horizon docs: https://docs.openstack.org/tacker-horizon/lastest
-* Source: https://git.openstack.org/cgit/openstack/tacker-horizon
+* Source: https://opendev.org/openstack/tacker-horizon
 * Bugs: https://bugs.launchpad.net/tacker
 
 Contents
