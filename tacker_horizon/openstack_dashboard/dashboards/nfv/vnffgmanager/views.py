@@ -10,12 +10,11 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-import json
-
 from django.urls import reverse
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from oslo_log import log as logging
+from oslo_serialization import jsonutils
 
 from horizon import exceptions
 from horizon import forms
@@ -93,7 +92,7 @@ class DetailView(tabs.TabView):
 
         try:
             vnffg = tacker_api.tacker.get_vnffg(self.request, vnffg_id)
-            vnffg["vnffg"]["mgmt_url"] = json.loads(
+            vnffg["vnffg"]["mgmt_url"] = jsonutils.loads(
                 vnffg["vnffg"]["mgmt_url"]) if vnffg["vnffg"].get(
                 "mgmt_url") else None
             return vnffg
