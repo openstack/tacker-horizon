@@ -14,6 +14,7 @@
 
 from django.forms import ValidationError
 from django.utils.translation import ugettext_lazy as _
+import yaml
 
 from horizon import exceptions
 from horizon import forms
@@ -89,7 +90,7 @@ class OnBoardVNF(forms.SelfHandlingForm):
 
     def handle(self, request, data):
         try:
-            toscal = data['tosca']
+            toscal = yaml.load(data['tosca'], Loader=yaml.SafeLoader)
             vnfd_name = data['name']
             vnfd_description = data['description']
             tosca_arg = {'vnfd': {'name': vnfd_name,
