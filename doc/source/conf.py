@@ -37,7 +37,6 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Tacker-Horizon'
 copyright = u'2018, OpenStack Developers'
 
 # openstackdocstheme options
@@ -66,16 +65,18 @@ pygments_style = 'sphinx'
 html_theme = 'openstackdocs'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = '%sdoc' % project
+htmlhelp_basename = 'tacker-horizon'
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass
 # [howto/manual]).
+# NOTE(vishalmanchanda): Specify toctree_only=True for a better document
+# structure of the generated PDF file.
 latex_documents = [
     ('index',
-     '%s.tex' % project,
-     u'%s Documentation' % project,
-     u'OpenStack Developers', 'manual'),
+     'doc-tacker-horizon.tex',
+     u'Tacker-Horizon Documentation',
+     u'OpenStack Developers', 'howto', True),
 ]
 
 man_pages = [
@@ -87,3 +88,14 @@ man_pages = [
 
 # Example configuration for intersphinx: refer to the Python standard library.
 # intersphinx_mapping = {'http://docs.python.org/': None}
+
+# Disable usage of xindy https://bugzilla.redhat.com/show_bug.cgi?id=1643664
+latex_use_xindy = False
+
+latex_domain_indices = False
+
+latex_elements = {
+    'makeindex': '',
+    'printindex': '',
+    'preamble': r'\setcounter{tocdepth}{3}',
+}
