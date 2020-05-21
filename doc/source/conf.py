@@ -40,10 +40,10 @@ master_doc = 'index'
 copyright = u'2018, OpenStack Developers'
 
 # openstackdocstheme options
-repository_name = 'openstack/tacker-horizon'
-bug_project = 'tacker'
-bug_tag = ''
-html_last_updated_fmt = '%Y-%m-%d %H:%M'
+openstackdocs_repo_name = 'openstack/tacker-horizon'
+openstackdocs_pdf_link = True
+openstackdocs_bug_project = 'tacker'
+openstackdocs_bug_tag = ''
 
 # If true, '()' will be appended to :func: etc. cross-reference text.
 add_function_parentheses = True
@@ -53,7 +53,7 @@ add_function_parentheses = True
 add_module_names = True
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'sphinx'
+pygments_style = 'native'
 
 # -- Options for HTML output --------------------------------------------------
 
