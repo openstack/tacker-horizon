@@ -38,4 +38,5 @@ class Nfv(horizon.Dashboard):
     default_panel = 'vnfcatalog'  # Specify the slug of the dashboard's
     # default panel.
 
+
 horizon.register(Nfv)

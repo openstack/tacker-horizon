@@ -95,8 +95,8 @@ class VNFUpdateRow(tables.Row):
         try:
             # stack = api.heat.stack_get(request, stack_id)
             # if stack.stack_status == 'DELETE_COMPLETE':
-                # returning 404 to the ajax call removes the
-                # row from the table on the ui
+            # returning 404 to the ajax call removes the
+            # row from the table on the ui
             #    raise Http404
             item = VNFManagerItemList.get_obj_given_stack_id(vnf_id)
             vnf_instance = api.tacker.get_vnf(request, vnf_id)
