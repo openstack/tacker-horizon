@@ -26,7 +26,7 @@ stable/queens. If unspecified the default will be master branch.
   ::
 
     cd tacker-horizon
-    sudo python setup.py install
+    sudo python3 setup.py install
 
 
 3. Enable tacker horizon in dashboard.
@@ -46,14 +46,6 @@ stable/queens. If unspecified the default will be master branch.
 
 
 5. Restart Apache server.
-
-  ::
-
-    sudo service apache2 restart
-
-
-If your server is using Systemd instead of Upstart (e.g Ubuntu 15.10
-and above), use the following command instead:
 
   ::
 
