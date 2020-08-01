@@ -14,6 +14,7 @@
 from django.utils.translation import ugettext_lazy as _
 from horizon import exceptions
 from horizon import tabs
+from horizon import utils as horizon_utils
 
 from tacker_horizon.openstack_dashboard import api
 from tacker_horizon.openstack_dashboard.dashboards.nfv.vnffgmanager \
@@ -36,9 +37,15 @@ class VNFFGManagerTab(tabs.TableTab):
 
     def get_vnffgmanager_data(self):
         try:
-            self._has_more = True
             VNFFGManagerItemList.clear_list()
             vnffgs = api.tacker.vnffg_list(self.request)
+
+            if len(vnffgs) > horizon_utils.functions.get_page_size(
+                    self.request):
+                self._has_more = True
+            else:
+                self._has_more = False
+
             for vnffg in vnffgs:
                 try:
                     vnffg_desc_str = vnffg['description']

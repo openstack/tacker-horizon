@@ -15,6 +15,7 @@
 from django.utils.translation import ugettext_lazy as _
 from horizon import exceptions
 from horizon import tabs
+from horizon import utils as horizon_utils
 
 from tacker_horizon.openstack_dashboard import api
 from tacker_horizon.openstack_dashboard.dashboards.nfv import utils
@@ -33,15 +34,15 @@ class VNFManagerTab(tabs.TableTab):
 
     def get_vnfmanager_data(self):
         try:
-            # marker = self.request.GET.get(
-            #            tables.VNFManagerTable._meta.pagination_param, None)
-
-            # instances, self._has_more = api.nova.server_list(
-            #    self.request,
-            #    search_opts={'marker': marker, 'paginate': True})
-            self._has_more = True
             tables.VNFManagerItemList.clear_list()
             vnfs = api.tacker.vnf_list(self.request)
+
+            if len(vnfs) > horizon_utils.functions.get_page_size(
+                    self.request):
+                self._has_more = True
+            else:
+                self._has_more = False
+
             for vnf in vnfs:
                 try:
                     vnf_services_str = vnf['attributes']['service_type']
@@ -99,10 +100,16 @@ class VNFEventsTab(tabs.TableTab):
 
     def get_events_data(self):
         try:
-            self._has_more = True
             utils.EventItemList.clear_list()
             events = api.tacker.events_list(self.request,
                                             self.tab_group.kwargs['vnf_id'])
+
+            if len(events) > horizon_utils.functions.get_page_size(
+                    self.request):
+                self._has_more = True
+            else:
+                self._has_more = False
+
             for event in events:
                 evt_obj = utils.EventItem(
                     event['id'], event['resource_state'],

@@ -16,6 +16,7 @@ import yaml
 
 from horizon import exceptions
 from horizon import tabs
+from horizon import utils as horizon_utils
 
 from tacker_horizon.openstack_dashboard import api
 from tacker_horizon.openstack_dashboard.dashboards.nfv.vnffgcatalog \
@@ -41,9 +42,15 @@ class VNFFGCatalogTab(tabs.TableTab):
 
     def get_vnffgcatalog_data(self):
         try:
-            self._has_more = False
             instances = []
             vnffgds = api.tacker.vnffgd_list(self.request)
+
+            if len(vnffgds) > horizon_utils.functions.get_page_size(
+                    self.request):
+                self._has_more = True
+            else:
+                self._has_more = False
+
             for vnffgd in vnffgds:
                 item = VNFFGCatalogItem(vnffgd['name'],
                                         vnffgd['description'],
