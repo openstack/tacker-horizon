@@ -96,9 +96,9 @@ class NSDEventsTab(tabs.TableTab):
                     event['event_details'])
                 utils.EventItemList.add_item(evt_obj)
             return utils.EventItemList.EVTLIST_P
-        except Exception as e:
+        except Exception:
             self._has_more = False
-            error_message = _('Unable to get events %s') % e
+            error_message = _('Unable to get events.')
             exceptions.handle(self.request, error_message)
             return []
 

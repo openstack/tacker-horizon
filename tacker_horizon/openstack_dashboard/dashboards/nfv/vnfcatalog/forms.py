@@ -101,8 +101,7 @@ class OnBoardVNF(forms.SelfHandlingForm):
                              _('VNF Catalog entry %s has been created.') %
                              vnfd_instance['vnfd']['name'])
             return toscal
-        except Exception as e:
-            msg = _('Unable to create TOSCA. %s')
-            msg %= e.message.split('Failed validating', 1)[0]
-            exceptions.handle(request, message=msg)
+        except Exception:
+            msg = _('Unable to create TOSCA.')
+            exceptions.handle(request, msg)
             return False

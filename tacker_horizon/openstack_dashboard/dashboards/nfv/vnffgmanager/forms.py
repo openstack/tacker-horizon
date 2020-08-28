@@ -86,7 +86,6 @@ class DeployVNFFG(forms.SelfHandlingForm):
                              _('VNFFG %s create operation initiated.') %
                              vnffg_name)
             return True
-        except Exception as e:
+        except Exception:
             exceptions.handle(request,
-                              _('Failed to create VNFFG: %s') %
-                              e.message)
+                              _('Failed to create VNFFG.'))

@@ -170,7 +170,6 @@ class DeployNS(forms.SelfHandlingForm):
                              _('NS %s create operation initiated.') %
                              ns_name)
             return True
-        except Exception as e:
+        except Exception:
             exceptions.handle(request,
-                              _('Failed to create NS: %s') %
-                              e.message)
+                              _('Failed to create NS.'))

@@ -233,7 +233,6 @@ class DeployVNF(forms.SelfHandlingForm):
                              _('VNF %s create operation initiated.') %
                              vnf_name)
             return True
-        except Exception as e:
+        except Exception:
             exceptions.handle(request,
-                              _('Failed to create VNF: %s') %
-                              e.message)
+                              _('Failed to create VNF.'))

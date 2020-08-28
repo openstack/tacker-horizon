@@ -119,7 +119,6 @@ class RegisterVim(forms.SelfHandlingForm):
                              _('VIM %s create operation initiated.') %
                              vim_name)
             return True
-        except Exception as e:
+        except Exception:
             exceptions.handle(request,
-                              _('Failed to register VIM: %s') %
-                              e.message)
+                              _('Failed to register VIM.'))
