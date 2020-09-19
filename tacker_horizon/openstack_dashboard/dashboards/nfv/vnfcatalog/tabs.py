@@ -17,6 +17,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from horizon import exceptions
 from horizon import tabs
+from horizon import utils as horizon_utils
 
 from tacker_horizon.openstack_dashboard import api
 from tacker_horizon.openstack_dashboard.dashboards.nfv import utils
@@ -43,10 +44,15 @@ class VNFCatalogTab(tabs.TableTab):
 
     def get_vnfcatalog_data(self):
         try:
-            self._has_more = False
             catalogs = []
             vnfds = api.tacker.vnfd_list(self.request,
                                          template_source="onboarded")
+
+            if len(vnfds) > horizon_utils.functions.get_page_size(
+                    self.request):
+                self._has_more = True
+            else:
+                self._has_more = False
 
             for vnfd in vnfds:
                 s_types = [s_type for s_type in vnfd['service_types']]
@@ -94,10 +100,16 @@ class VNFDEventsTab(tabs.TableTab):
 
     def get_events_data(self):
         try:
-            self._has_more = True
             utils.EventItemList.clear_list()
             events = api.tacker.events_list(self.request,
                                             self.tab_group.kwargs['vnfd_id'])
+
+            if len(events) > horizon_utils.functions.get_page_size(
+                    self.request):
+                self._has_more = True
+            else:
+                self._has_more = False
+
             for event in events:
                 evt_obj = utils.EventItem(
                     event['id'], event['resource_state'],

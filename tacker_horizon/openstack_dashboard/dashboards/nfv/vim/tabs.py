@@ -17,6 +17,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from horizon import exceptions
 from horizon import tabs
+from horizon import utils as horizon_utils
 
 from tacker_horizon.openstack_dashboard import api
 from tacker_horizon.openstack_dashboard.dashboards.nfv import utils  # noqa
@@ -50,9 +51,15 @@ class VIMTab(tabs.TableTab):
 
     def get_vim_data(self):
         try:
-            self._has_more = False
             instances = []
             vims = api.tacker.vim_list(self.request)
+
+            if len(vims) > horizon_utils.functions.get_page_size(
+                    self.request):
+                self._has_more = True
+            else:
+                self._has_more = False
+
             for vim in vims:
                 auth_cred = vim['auth_cred']
                 placement_attr = vim['placement_attr']
@@ -97,10 +104,16 @@ class VIMEventsTab(tabs.TableTab):
 
     def get_events_data(self):
         try:
-            self._has_more = True
             utils.EventItemList.clear_list()
             events = api.tacker.events_list(self.request,
                                             self.tab_group.kwargs['vim_id'])
+
+            if len(events) > horizon_utils.functions.get_page_size(
+                    self.request):
+                self._has_more = True
+            else:
+                self._has_more = False
+
             for event in events:
                 evt_obj = utils.EventItem(
                     event['id'], event['resource_state'],

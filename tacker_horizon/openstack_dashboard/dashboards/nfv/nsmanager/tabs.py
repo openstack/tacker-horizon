@@ -13,6 +13,7 @@
 from django.utils.translation import ugettext_lazy as _
 from horizon import exceptions
 from horizon import tabs
+from horizon import utils as horizon_utils
 
 from tacker_horizon.openstack_dashboard import api
 from tacker_horizon.openstack_dashboard.dashboards.nfv.nsmanager import tables
@@ -31,9 +32,15 @@ class NSManagerTab(tabs.TableTab):
 
     def get_nsmanager_data(self):
         try:
-            self._has_more = True
             tables.NSManagerItemList.clear_list()
             nss = api.tacker.ns_list(self.request)
+
+            if len(nss) > horizon_utils.functions.get_page_size(
+                    self.request):
+                self._has_more = True
+            else:
+                self._has_more = False
+
             for ns in nss:
                 try:
                     ns_desc_str = ns['description']
@@ -76,10 +83,16 @@ class NSEventsTab(tabs.TableTab):
 
     def get_events_data(self):
         try:
-            self._has_more = True
             utils.EventItemList.clear_list()
             events = api.tacker.events_list(self.request,
                                             self.tab_group.kwargs['ns_id'])
+
+            if len(events) > horizon_utils.functions.get_page_size(
+                    self.request):
+                self._has_more = True
+            else:
+                self._has_more = False
+
             for event in events:
                 evt_obj = utils.EventItem(
                     event['id'], event['resource_state'],
