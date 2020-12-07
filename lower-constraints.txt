@@ -38,7 +38,6 @@ jsonschema==2.6.0
 keystoneauth1==3.6.2
 linecache2==1.0.0
 MarkupSafe==1.0
-mccabe==0.2.1
 monotonic==1.4
 msgpack==0.5.6
 msgpack-python==0.4.0
@@ -67,7 +66,6 @@ pep8==1.5.7
 Pint==0.5
 positional==1.2.1
 prettytable==0.7.2
-pyflakes==0.8.1
 Pygments==2.2.0
 pyinotify==0.9.6
 pymongo==3.0.2
