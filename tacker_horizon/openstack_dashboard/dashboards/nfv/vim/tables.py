@@ -30,16 +30,16 @@ class DeleteVIMLink(policy.PolicyTargetMixin, tables.DeleteAction):
     @staticmethod
     def action_present(count):
         return ungettext_lazy(
-            u"Delete VIM",
-            u"Delete VIMs",
+            "Delete VIM",
+            "Delete VIMs",
             count
         )
 
     @staticmethod
     def action_past(count):
         return ungettext_lazy(
-            u"Delete VIM",
-            u"Delete VIMs",
+            "Delete VIM",
+            "Delete VIMs",
             count
         )
 

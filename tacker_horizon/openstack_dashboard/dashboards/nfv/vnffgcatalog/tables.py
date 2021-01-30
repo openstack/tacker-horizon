@@ -28,16 +28,16 @@ class DeleteVNFFGD(policy.PolicyTargetMixin, tables.DeleteAction):
     @staticmethod
     def action_present(count):
         return ungettext_lazy(
-            u"Delete VNFFG",
-            u"Delete VNFFGs",
+            "Delete VNFFG",
+            "Delete VNFFGs",
             count
         )
 
     @staticmethod
     def action_past(count):
         return ungettext_lazy(
-            u"Delete VNFFG",
-            u"Delete VNFFGs",
+            "Delete VNFFG",
+            "Delete VNFFGs",
             count
         )
 

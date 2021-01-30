@@ -37,7 +37,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-copyright = u'2018, OpenStack Developers'
+copyright = '2018, OpenStack Developers'
 
 # openstackdocstheme options
 openstackdocs_repo_name = 'openstack/tacker-horizon'
@@ -75,15 +75,15 @@ htmlhelp_basename = 'tacker-horizon'
 latex_documents = [
     ('index',
      'doc-tacker-horizon.tex',
-     u'Tacker-Horizon Documentation',
-     u'OpenStack Developers', 'howto', True),
+     'Tacker-Horizon Documentation',
+     'OpenStack Developers', 'howto', True),
 ]
 
 man_pages = [
-    ('index', u'Tacker Horizon Documentation',
+    ('index', 'Tacker Horizon Documentation',
      'Documentation for Tacker Horizon plugin to Openstack\
       Dashboard (Horizon)',
-     [u'OpenStack'], 1)
+     ['OpenStack'], 1)
 ]
 
 # Example configuration for intersphinx: refer to the Python standard library.

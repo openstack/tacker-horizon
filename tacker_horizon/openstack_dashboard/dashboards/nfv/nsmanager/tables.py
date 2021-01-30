@@ -109,16 +109,16 @@ class DeleteNS(policy.PolicyTargetMixin, tables.DeleteAction):
     @staticmethod
     def action_present(count):
         return ungettext_lazy(
-            u"Terminate NS",
-            u"Terminate NSs",
+            "Terminate NS",
+            "Terminate NSs",
             count
         )
 
     @staticmethod
     def action_past(count):
         return ungettext_lazy(
-            u"Terminate NS",
-            u"Terminate NSs",
+            "Terminate NS",
+            "Terminate NSs",
             count
         )
 
