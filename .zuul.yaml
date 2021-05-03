@@ -25,7 +25,6 @@
     templates:
       - check-requirements
       - horizon-non-primary-django-jobs
-      - openstack-lower-constraints-jobs-horizon
       - openstack-python3-zed-jobs-horizon
       - publish-openstack-docs-pti
     check:
