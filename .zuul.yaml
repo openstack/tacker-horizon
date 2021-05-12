@@ -1,3 +1,26 @@
+- job:
+    name: tacker-horizon-integration-tests
+    parent: horizon-integration-tests
+    required-projects:
+      - name: openstack/horizon
+      - name: openstack/tacker
+      - name: openstack/python-tackerclient
+      - name: openstack/tacker-horizon
+    roles:
+      - zuul: openstack-infra/devstack
+      - zuul: openstack/horizon
+    irrelevant-files:
+      - ^.*\.rst$
+      - ^doc/.*$
+      - ^releasenotes/.*$
+    vars:
+      devstack_plugins:
+        tacker: https://git.openstack.org/openstack/tacker
+        tacker-horizon: https://git.openstack.org/openstack/tacker-horizon
+      devstack_services:
+        horizon: true
+      tox_envlist: integration
+
 - project:
     templates:
       - check-requirements
@@ -5,3 +28,7 @@
       - openstack-lower-constraints-jobs-horizon
       - openstack-python3-wallaby-jobs-horizon
       - publish-openstack-docs-pti
+    check:
+      jobs:
+        - tacker-horizon-integration-tests:
+            voting: false

@@ -86,11 +86,13 @@ PyYAML==3.12
 requests==2.25.1
 requestsexceptions==1.4.0
 rfc3986==1.1.0
+selenium==2.50.1
 semantic-version==2.3.1
 simplejson==3.13.2
 snowballstemmer==1.2.1
 stevedore==3.3.0
 termcolor==1.1.0
+testtools==2.2.0
 traceback2==1.4.0
 unittest2==1.1.0
 urllib3==1.22
