@@ -92,12 +92,15 @@ class DetailView(tabs.TabView):
 
         try:
             vnffg = tacker_api.tacker.get_vnffg(self.request, vnffg_id)
-            vnffg["vnffg"]["mgmt_url"] = jsonutils.loads(
-                vnffg["vnffg"]["mgmt_url"]) if vnffg["vnffg"].get(
-                "mgmt_url") else None
+            vnffg["vnffg"]["mgmt_ip_address"] = jsonutils.loads(
+                vnffg["vnffg"]["mgmt_ip_address"]) if vnffg["vnffg"].get(
+                "mgmt_ip_address") else None
             return vnffg
         except ValueError as e:
             msg = _('Cannot decode json : %s') % e
+            LOG.error(msg)
+        except KeyError as err:
+            msg = _('Required field %s not specified') % err.args[0]
             LOG.error(msg)
         except Exception:
             redirect = reverse(self.redirect_url)

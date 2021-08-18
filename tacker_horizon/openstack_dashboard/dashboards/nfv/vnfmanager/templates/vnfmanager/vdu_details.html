@@ -33,7 +33,7 @@
   <h4>{% trans "Mgmt IP Addresses" %}</h4>
   <hr class="header_rule">
   <dl class="dl-horizontal">
-    {% for key, value in vnf.vnf.mgmt_url.items %}
+    {% for key, value in vnf.vnf.mgmt_ip_address.items %}
       <dt>{{ key|title }}</dt>
       <dd>{{ value }}</dd>
     {% endfor %}
