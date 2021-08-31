@@ -10,12 +10,9 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+import unittest
 
-from openstack_dashboard.test import helpers as test
 
+class TestCase(unittest.TestCase):
 
-class VnfmanagerTests(test.TestCase):
-    # Unit tests for vnffgmanager.
-
-    def test_me(self):
-        self.assertTrue(1 + 1 == 2)
+    """Test case base class for all unit tests."""

@@ -1,4 +1,3 @@
-# Copyright 2016 Brocade Communications System, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
 # not use this file except in compliance with the License. You may obtain
@@ -12,12 +11,10 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+from openstack_dashboard.test.integration_tests.pages import basepage
 
-from openstack_dashboard.test import helpers as test
 
-
-class VimmanagerTests(test.TestCase):
-    # Unit tests for vimmanager.
-
-    def test_me(self):
-        self.assertTrue(1 + 1 == 2)
+class NscatalogPage(basepage.BaseNavigationPage):
+    def __init__(self, driver, conf):
+        super(NscatalogPage, self).__init__(driver, conf)
+        self._page_title = "NS Catalog"

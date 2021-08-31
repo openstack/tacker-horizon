@@ -1,4 +1,3 @@
-# Copyright 2015 Brocade Communications System, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
 # not use this file except in compliance with the License. You may obtain
@@ -12,12 +11,10 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+from openstack_dashboard.test.integration_tests.pages import basepage
 
-from openstack_dashboard.test import helpers as test
 
-
-class VnfcatalogTests(test.TestCase):
-    # Unit tests for vnfcatalog.
-
-    def test_me(self):
-        self.assertTrue(1 + 1 == 2)
+class VnfcatalogPage(basepage.BaseNavigationPage):
+    def __init__(self, driver, conf):
+        super(VnfcatalogPage, self).__init__(driver, conf)
+        self._page_title = "VNF Catalog"

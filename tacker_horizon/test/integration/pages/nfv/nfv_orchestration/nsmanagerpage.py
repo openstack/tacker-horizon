@@ -1,3 +1,4 @@
+#
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
 # not use this file except in compliance with the License. You may obtain
 # a copy of the License at
@@ -10,11 +11,10 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
+from openstack_dashboard.test.integration_tests.pages import basepage
 
-from openstack_dashboard.test import helpers as test
 
-
-class NsmanagerTests(test.TestCase):
-
-    def test_me(self):
-        self.assertTrue(1 + 1 == 2)
+class NsmanagerPage(basepage.BaseNavigationPage):
+    def __init__(self, driver, conf):
+        super(NsmanagerPage, self).__init__(driver, conf)
+        self._page_title = "NS Manager"
