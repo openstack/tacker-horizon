@@ -119,7 +119,7 @@ class VNFUpdateRow(tables.Row):
             except KeyError:
                 vnf_desc_str = ""
 
-            vim = vnf['placement_attr']['vim_name']
+            vim = vnf['placement_attr'].get('vim_name', '')
             if not item:
                 # Add an item entry
                 item = VNFManagerItem(vnf['name'], vnf_desc_str,

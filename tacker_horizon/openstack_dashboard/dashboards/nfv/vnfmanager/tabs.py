@@ -53,7 +53,7 @@ class VNFManagerTab(tabs.TableTab):
                 except KeyError:
                     vnf_desc_str = ""
 
-                vim = vnf['placement_attr']['vim_name']
+                vim = vnf['placement_attr'].get('vim_name', '')
                 obj = tables.VNFManagerItem(
                     vnf['name'],
                     vnf_desc_str,
