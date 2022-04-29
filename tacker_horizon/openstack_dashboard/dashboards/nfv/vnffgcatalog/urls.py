@@ -11,14 +11,15 @@
 # under the License.
 
 
-from django.conf.urls import url
+from django.urls import re_path
 
 from tacker_horizon.openstack_dashboard.dashboards.nfv.vnffgcatalog \
     import views
 
 urlpatterns = [
-    url(r'^$', views.IndexView.as_view(), name='index'),
-    url(r'^onboardvnffg', views.OnBoardVNFFGView.as_view(),
-        name='onboardvnffg'),
-    url(r'^(?P<vnffgd_id>[^/]+)/$', views.DetailView.as_view(), name='detail'),
+    re_path(r'^$', views.IndexView.as_view(), name='index'),
+    re_path(r'^onboardvnffg', views.OnBoardVNFFGView.as_view(),
+            name='onboardvnffg'),
+    re_path(r'^(?P<vnffgd_id>[^/]+)/$', views.DetailView.as_view(),
+            name='detail'),
 ]
