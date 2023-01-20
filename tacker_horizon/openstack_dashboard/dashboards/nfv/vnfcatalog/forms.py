@@ -13,7 +13,7 @@
 # under the License.
 
 from django.forms import ValidationError
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 import yaml
 
 from horizon import exceptions
