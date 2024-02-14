@@ -1,0 +1,42 @@
+{% load i18n %}
+
+<div class="detail">
+  <dl class="dl-horizontal">
+    <dt>{% trans "Ack State" %}</dt>
+    <dd>{{ alarm.ackState }}</dd>
+    <dt title="Alarm Acknowledged Time">{% trans "Alarm Acknowledged Time" %}</dt>
+    <dd>{{ alarm.alarmAcknowledgedTime }}</dd>
+    <dt>{% trans "Alarm Changed Time" %}</dt>
+    <dd>{{ alarm.alarmChangedTime }}</dd>
+    <dt>{% trans "Alarm Cleared Time" %}</dt>
+    <dd>{{ alarm.alarmClearedTime }}</dd>
+    <dt>{% trans "Alarm Raised Time" %}</dt>
+    <dd>{{ alarm.alarmRaisedTime }}</dd>
+    <dt>{% trans "Correlated Alarm IDs" %}</dt>
+    <dd>{{ alarm.correlatedAlarmIds }}</dd>
+    <dt>{% trans "Event Time" %}</dt>
+    <dd>{{ alarm.eventTime }}</dd>
+    <dt>{% trans "Event Type" %}</dt>
+    <dd>{{ alarm.eventType }}</dd>
+    <dt>{% trans "Fault Details" %}</dt>
+    <dd>{{ alarm.faultDetails }}</dd>
+    <dt>{% trans "Fault Type" %}</dt>
+    <dd>{{ alarm.faultType }}</dd>
+    <dt>{% trans "ID" %}</dt>
+    <dd>{{ alarm.id }}</dd>
+    <dt>{% trans "Is Root Cause" %}</dt>
+    <dd>{{ alarm.isRootCause }}</dd>
+    <dt>{% trans "Links" %}</dt>
+    <dd>{{ alarm.links }}</dd>
+    <dt>{% trans "Managed Object ID" %}</dt>
+    <dd>{{ alarm.managedObjectId }}</dd>
+    <dt>{% trans "Perceived Severity" %}</dt>
+    <dd>{{ alarm.perceivedSeverity }}</dd>
+    <dt>{% trans "Probable Cause" %}</dt>
+    <dd>{{ alarm.probableCause }}</dd>
+    <dt title="Root Cause Faulty Resource">{% trans "Root Cause Faulty Resource" %}</dt>
+    <dd>{{ alarm.rootCauseFaultyResource }}</dd>
+    <dt>{% trans "VNFC Instance IDs" %}</dt>
+    <dd>{{ alarm.vnfcInstanceIds  }}</dd>
+  </dl>
+</div>

@@ -1,0 +1,13 @@
+---
+features:
+  - |
+    Support the latest NFV Orchestration API v2.0 listed below.
+
+    * Virtualized Network Function Lifecycle Management Interface (VNF LCM) v2
+    * Virtualized Network Function Fault Management Interface (VNF FM) v1
+    * Virtualized Network Function Performance Management Interface (VNF PM) v2
+
+    In addition, to manage VNF packages for testing purposes, also support
+    Orchestration API v1.0 listed below.
+
+    * Virtualized Network Function Packages (VNF packages)

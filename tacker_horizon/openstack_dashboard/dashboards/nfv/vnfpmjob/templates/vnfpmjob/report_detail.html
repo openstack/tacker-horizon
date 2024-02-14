@@ -1,0 +1,39 @@
+{% load i18n %}
+
+<style>
+  table {
+      border-collapse: collapse;
+      width: 100%;
+  }
+  th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+  }
+</style>
+
+<div class="detail">
+  <dl class="dl-horizontal">
+    <dt>{% trans "Entries" %}</dt>
+    <dd>
+      <table style="width:100%">
+        <tr>
+          <th><b>{% trans "objectType" %}<br/></b></th>
+          <th><b>{% trans "objectInstanceId" %}<br/></b></th>
+          <th><b>{% trans "subObjectInstanceId" %}<br/></b></th>
+          <th><b>{% trans "performanceMetric" %}<br/></b></th>
+          <th><b>{% trans "performanceValues" %}<br/></b></th>
+        </tr>
+      {% for entrie in report.entries %}
+        <tr>
+          <td>{{ entrie.objectType }}</td>
+          <td>{{ entrie.objectInstanceId }}</td>
+          <td>{{ entrie.subObjectInstanceId }}</td>
+          <td>{{ entrie.performanceMetric }}</td>
+          <td>{{ entrie.performanceValues }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  </dd>
+  </dl>
+</div>

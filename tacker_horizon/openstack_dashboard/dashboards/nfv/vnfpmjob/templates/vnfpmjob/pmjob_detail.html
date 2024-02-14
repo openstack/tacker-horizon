@@ -1,0 +1,57 @@
+{% load i18n %}
+
+<style>
+  table {
+      border-collapse: collapse;
+      width: 100%;
+  }
+  th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+  }
+</style>
+
+<div class="detail">
+  <dl class="dl-horizontal">
+    <dt>{% trans "ID" %}</dt>
+    <dd>{{ pmjob.id }}</dd>
+    <dt>{% trans "Links" %}</dt>
+    <dd>{{ pmjob.links }}</dd>
+    <dt>{% trans "Callback Uri" %}</dt>
+    <dd>{{ pmjob.callback_uri }}</dd>
+    <dt>{% trans "Criteria" %}</dt>
+    <dd>{{ pmjob.criteria }}</dd>
+    <dt>{% trans "Object Instance IDs" %}</dt>
+    <dd>{{ pmjob.object_instance_ids }}</dd>
+    <dt>{% trans "Object Type" %}</dt>
+    <dd>{{ pmjob.object_type }}</dd>
+    <dt>{% trans "Sub Object Instance IDs" %}</dt>
+    <dd>{{ pmjob.sub_object_instance_ids }}</dd>
+    <dt>{% trans "Reports" %}</dt>
+    <dd>
+      <table style="width:100%">
+        <tr>
+          <th><b>{% trans "readyTime" %}<br/></b></th>
+          <th><b>{% trans "href" %}<br/></b></th>
+        </tr>
+      {% for report in pmjob.reports %}
+        <tr>
+          <td>{{ report.readyTime }}</td>
+          <td>
+            {% if report.href %}
+              {% if report.id and report.reportId %}
+                <a href="{% url 'horizon:nfv:vnfpmjob:reportdetail' report.id report.reportId %}">{{ report.href }}</a>
+              {% else %}
+                {% trans report.href %}
+              {% endif %}
+            {% else %}
+              {% trans "-" %}
+            {% endif %}
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  </dd>
+  </dl>
+</div>

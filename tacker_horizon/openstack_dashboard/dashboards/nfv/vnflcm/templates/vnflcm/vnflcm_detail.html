@@ -1,0 +1,30 @@
+{% load i18n %}
+
+<div class="detail">
+  <dl class="dl-horizontal">
+    <dt>{% trans "ID" %}</dt>
+    <dd>{{ vnflcm.id }}</dd>
+    <dt>{% trans "Instantiated Vnf Info" %}</dt>
+    <dd>{{ vnflcm.instantiatedVnfInfo }}</dd>
+    <dt>{% trans "Instantiation State" %}</dt>
+    <dd>{{ vnflcm.instantiationState }}</dd>
+    <dt>{% trans "Links" %}</dt>
+    <dd>{{ vnflcm.links }}</dd>
+    <dt>{% trans "VIM Connection Info" %}</dt>
+    <dd>{{ vnflcm.vimConnectionInfo }}</dd>
+    <dt>{% trans "VNF Instance Description" %}</dt>
+    <dd>{{ vnflcm.vnfInstanceDescription }}</dd>
+    <dt>{% trans "VNF Instance Name" %}</dt>
+    <dd>{{ vnflcm.vnfInstanceName }}</dd>
+    <dt>{% trans "VNF Product Name" %}</dt>
+    <dd>{{ vnflcm.vnfProductName }}</dd>
+    <dt>{% trans "VNF Provider" %}</dt>
+    <dd>{{ vnflcm.vnfProvider }}</dd>
+    <dt>{% trans "VNF Software Version" %}</dt>
+    <dd>{{ vnflcm.vnfSoftwareVersion }}</dd>
+    <dt>{% trans "VNFD ID" %}</dt>
+    <dd>{{ vnflcm.vnfdId }}</dd>
+    <dt>{% trans "VNFD Version" %}</dt>
+    <dd>{{ vnflcm.vnfdVersion }}</dd>
+  </dl>
+</div>

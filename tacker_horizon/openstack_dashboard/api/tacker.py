@@ -44,10 +44,11 @@ CERT_VERIFY_TYPES = (
 
 
 @memoized
-def tackerclient(request):
+def tackerclient(request, api_version="1"):
     insecure = getattr(settings, 'OPENSTACK_SSL_NO_VERIFY', False)
     cacert = getattr(settings, 'OPENSTACK_SSL_CACERT', None)
     c = tacker_client.Client(
+        api_version=api_version,
         token=request.user.token.id,
         auth_url=base.url_for(request, 'identity'),
         endpoint_url=base.url_for(request, 'nfv-orchestration'),
@@ -251,3 +252,370 @@ def create_ns(request, ns_arg, **params):
     LOG.debug("create_ns(): ns_arg=%s", str(ns_arg))
     ns_instance = tackerclient(request).create_ns(body=ns_arg)
     return ns_instance
+
+
+# VNF Packages v1
+@profiler.trace
+def create_vnf_package(request, body):
+    LOG.debug("create_vnf_package(): body=%s", body)
+    vnf_package = tackerclient(request).create_vnf_package(body=body)
+    return vnf_package
+
+
+@profiler.trace
+def list_vnf_packages(request, **params):
+    LOG.debug("list_vnf_packages(): params=%s", params)
+    vnf_packages = tackerclient(request).list_vnf_packages(**params).get(
+        'vnf_packages')
+    return vnf_packages
+
+
+@profiler.trace
+def get_vnf_package(request, vnf_pkg_id):
+    LOG.debug("get_vnf_package(): vnf_pkg_id=%s", vnf_pkg_id)
+    vnf_package = tackerclient(request).show_vnf_package(vnf_pkg_id)
+    return vnf_package
+
+
+@profiler.trace
+def delete_vnf_package(request, vnf_pkg_id):
+    LOG.debug("delete_vnf_package(): vnf_pkg_id=%s", vnf_pkg_id)
+    result = tackerclient(request).delete_vnf_package(vnf_pkg_id)
+    return result
+
+
+@profiler.trace
+def upload_vnf_package(request, vnf_pkg_id, file_data=None, **params):
+    LOG.debug("upload_vnf_package(): vnf_pkg_id=%s, params=%s",
+              vnf_pkg_id, params)
+    vnf_package = tackerclient(request).upload_vnf_package(
+        vnf_pkg_id, file_data=file_data, **params)
+    return vnf_package
+
+
+@profiler.trace
+def update_vnf_package(request, vnf_pkg_id, body):
+    LOG.debug("update_vnf_package(): vnf_pkg_id=%s, body=%s",
+              vnf_pkg_id, body)
+    updated_values = tackerclient(request).update_vnf_package(
+        vnf_pkg_id, body=body)
+    return updated_values
+
+
+@profiler.trace
+def fetch_vnf_package(request, vnf_pkg_id):
+    LOG.debug("fetch_vnf_package(): vnf_pkg_id=%s", vnf_pkg_id)
+    vnf_package_file = tackerclient(request).download_vnf_package(vnf_pkg_id)
+    return vnf_package_file
+
+
+# VNF LCM v2
+@profiler.trace
+def create_vnf_instance(request, body):
+    LOG.debug("create_vnf_instance(): body=%s", body)
+    vnf_instance = (tackerclient(request, api_version="2")
+                    .create_vnf_instance(body=body))
+    return vnf_instance
+
+
+@profiler.trace
+def get_vnf_instance(request, vnf_instance_id):
+    LOG.debug("get_vnf_instance(): vnf_instance_id=%s", vnf_instance_id)
+    vnf_instance = (tackerclient(request, api_version="2")
+                    .show_vnf_instance(vnf_instance_id))
+    return vnf_instance
+
+
+@profiler.trace
+def list_vnf_instances(request, **params):
+    LOG.debug("list_vnf_instances(): params=%s", params)
+    vnf_instances = (tackerclient(request, api_version="2")
+                     .list_vnf_instances(**params))
+    return vnf_instances
+
+
+@profiler.trace
+def delete_vnf_instance(request, vnf_instance_id):
+    LOG.debug("delete_vnf_instance(): vnf_instance_id=%s", vnf_instance_id)
+    result = (tackerclient(request, api_version="2")
+              .delete_vnf_instance(vnf_instance_id))
+    return result
+
+
+@profiler.trace
+def instantiate_vnf_instance(request, vnf_instance_id, body):
+    LOG.debug("instantiate_vnf_instance(): vnf_instance_id=%s, body=%s",
+              vnf_instance_id, body)
+    result = (tackerclient(request, api_version="2")
+              .instantiate_vnf_instance(vnf_instance_id, body=body))
+    return result
+
+
+@profiler.trace
+def terminate_vnf_instance(request, vnf_instance_id, body):
+    LOG.debug("terminate_vnf_instance(): vnf_instance_id=%s, body=%s",
+              vnf_instance_id, body)
+    result = (tackerclient(request, api_version="2")
+              .terminate_vnf_instance(vnf_instance_id, body=body))
+    return result
+
+
+@profiler.trace
+def heal_vnf_instance(request, vnf_instance_id, body):
+    LOG.debug("heal_vnf_instance(): vnf_instance_id=%s, body=%s",
+              vnf_instance_id, body)
+    result = (tackerclient(request, api_version="2")
+              .heal_vnf_instance(vnf_instance_id, body=body))
+    return result
+
+
+@profiler.trace
+def update_vnf_instance(request, vnf_instance_id, body):
+    LOG.debug("update_vnf_instance(): vnf_instance_id=%s, body=%s",
+              vnf_instance_id, body)
+    result = (tackerclient(request, api_version="2")
+              .update_vnf_instance(vnf_instance_id, body=body))
+    return result
+
+
+@profiler.trace
+def scale_vnf_instance(request, vnf_instance_id, body):
+    LOG.debug("scale_vnf_instance(): vnf_instance_id=%s, body=%s",
+              vnf_instance_id, body)
+    result = (tackerclient(request, api_version="2")
+              .scale_vnf_instance(vnf_instance_id, body=body))
+    return result
+
+
+@profiler.trace
+def change_ext_conn_vnf_instance(request, vnf_instance_id, body):
+    LOG.debug("change_ext_conn_vnf_instance(): vnf_instance_id=%s, body=%s",
+              vnf_instance_id, body)
+    result = (tackerclient(request, api_version="2")
+              .change_ext_conn_vnf_instance(vnf_instance_id, body=body))
+    return result
+
+
+@profiler.trace
+def change_vnfpkg_vnf_instance(request, vnf_instance_id, body):
+    LOG.debug("change_vnfpkg_vnf_instance(): vnf_instance_id=%s, body=%s",
+              vnf_instance_id, body)
+    result = (tackerclient(request, api_version="2")
+              .change_vnfpkg_vnf_instance(vnf_instance_id, body=body))
+    return result
+
+
+@profiler.trace
+def list_vnf_lcm_op_occs(request, **params):
+    LOG.debug("list_vnf_lcm_op_occs(): params=%s", params)
+    op_occs = (tackerclient(request, api_version="2")
+               .list_vnf_lcm_op_occs(**params))
+    return op_occs
+
+
+@profiler.trace
+def get_vnf_lcm_op_occ(request, op_occ_id):
+    LOG.debug("get_vnf_lcm_op_occ(): op_occ_id=%s", op_occ_id)
+    op_occ = (tackerclient(request, api_version="2")
+              .show_vnf_lcm_op_occs(op_occ_id))
+    return op_occ
+
+
+@profiler.trace
+def rollback_vnf_lcm_op_occ(request, op_occ_id):
+    LOG.debug("rollback_vnf_lcm_op_occ(): op_occ_id=%s", op_occ_id)
+    result = (tackerclient(request, api_version="2")
+              .rollback_vnf_instance(op_occ_id))
+    return result
+
+
+@profiler.trace
+def retry_vnf_lcm_op_occ(request, op_occ_id):
+    LOG.debug("retry_vnf_lcm_op_occ(): op_occ_id=%s", op_occ_id)
+    result = (tackerclient(request, api_version="2")
+              .retry_vnf_instance(op_occ_id))
+    return result
+
+
+@profiler.trace
+def fail_vnf_lcm_op_occ(request, op_occ_id):
+    LOG.debug("fail_vnf_lcm_op_occs(): op_occ_id=%s", op_occ_id)
+    result = (tackerclient(request, api_version="2")
+              .fail_vnf_instance(op_occ_id))
+    return result
+
+
+@profiler.trace
+def list_vnf_lcm_subscriptions(request, **params):
+    LOG.debug("list_vnf_lcm_subscriptions(): params=%s", params)
+    subscriptions = (tackerclient(request, api_version="2")
+                     .list_lccn_subscriptions(**params))
+    return subscriptions
+
+
+@profiler.trace
+def get_vnf_lcm_subscription(request, subsc_id):
+    LOG.debug("get_vnf_lcm_subscription(): subsc_id=%s", subsc_id)
+    subscription = (tackerclient(request, api_version="2")
+                    .show_lccn_subscription(subsc_id))
+    return subscription
+
+
+@profiler.trace
+def delete_vnf_lcm_subscription(request, subsc_id):
+    LOG.debug("delete_vnf_lcm_subscription(): subsc_id=%s", subsc_id)
+    result = (tackerclient(request, api_version="2")
+              .delete_lccn_subscription(subsc_id))
+    return result
+
+
+@profiler.trace
+def create_vnf_lcm_subscription(request, param):
+    LOG.debug("create_vnf_lcm_subscription(): param=%s", param)
+    subscription = (tackerclient(request, api_version="2")
+                    .create_lccn_subscription(body=param))
+    return subscription
+
+
+# VNF FM v1
+@profiler.trace
+def list_fm_alarms(request, **params):
+    LOG.debug("list_fm_alarms(): params=%s", params)
+    fm_alarms = tackerclient(request).list_vnf_fm_alarms(**params).get(
+        'vnf_fm_alarms')
+    return fm_alarms
+
+
+@profiler.trace
+def get_fm_alarm(request, alarm_id):
+    LOG.debug("get_fm_alarm(): alarm_id=%s", alarm_id)
+    fm_alarm = tackerclient(request).show_vnf_fm_alarm(alarm_id)
+    return fm_alarm
+
+
+@profiler.trace
+def update_fm_alarm(request, alarm_id, body):
+    LOG.debug("update_fm_alarm(): alarm_id=%s, body=%s", alarm_id, body)
+    updated_values = tackerclient(request).update_vnf_fm_alarm(
+        alarm_id, body=body)
+    return updated_values
+
+
+@profiler.trace
+def create_fm_subscription(request, body):
+    LOG.debug("create_fm_subscription(): body=%s", body)
+    fm_subscription = tackerclient(request).create_vnf_fm_sub(body=body)
+    return fm_subscription
+
+
+@profiler.trace
+def list_fm_subscriptions(request, **params):
+    LOG.debug("list_fm_subscriptions(): params=%s", params)
+    fm_subscriptions = tackerclient(request).list_vnf_fm_subs(**params).get(
+        'vnf_fm_subs')
+    return fm_subscriptions
+
+
+@profiler.trace
+def get_fm_subscription(request, subsc_id):
+    LOG.debug("get_fm_subscription(): subsc_id=%s", subsc_id)
+    fm_subscription = tackerclient(request).show_vnf_fm_sub(subsc_id)
+    return fm_subscription
+
+
+@profiler.trace
+def delete_fm_subscription(request, subsc_id):
+    LOG.debug("delete_fm_subscription(): subsc_id=%s", subsc_id)
+    result = tackerclient(request).delete_vnf_fm_sub(subsc_id)
+    return result
+
+
+# VNF PM v2
+@profiler.trace
+def create_pm_job(request, body):
+    LOG.debug("create_pm_job(): body=%s", body)
+    pm_job = (tackerclient(request, api_version="2")
+              .create_vnf_pm_job(body=body))
+    return pm_job
+
+
+@profiler.trace
+def list_pm_jobs(request, **params):
+    LOG.debug("list_pm_jobs(): params=%s", params)
+    pm_jobs = (tackerclient(request, api_version="2")
+               .list_vnf_pm_jobs(**params).get('vnf_pm_jobs'))
+    return pm_jobs
+
+
+@profiler.trace
+def get_pm_job(request, pm_job_id):
+    LOG.debug("get_pm_job(): pm_job_id=%s", pm_job_id)
+    pm_job = tackerclient(request, api_version="2").show_vnf_pm_job(pm_job_id)
+    return pm_job
+
+
+@profiler.trace
+def update_pm_job(request, pm_job_id, body):
+    LOG.debug("update_pm_job(): pm_job_id=%s, body=%s", pm_job_id, body)
+    updated_values = (tackerclient(request, api_version="2")
+                      .update_vnf_pm_job(pm_job_id, body=body))
+    return updated_values
+
+
+@profiler.trace
+def delete_pm_job(request, pm_job_id):
+    LOG.debug("delete_pm_job(): pm_job_id=%s", pm_job_id)
+    result = (tackerclient(request, api_version="2")
+              .delete_vnf_pm_job(pm_job_id))
+    return result
+
+
+@profiler.trace
+def get_pm_report(request, pm_job_id, pm_report_id):
+    LOG.debug("get_pm_report(): pm_job_id=%s, pm_report_id=%s",
+              pm_job_id, pm_report_id)
+    pm_report = (tackerclient(request, api_version="2")
+                 .show_vnf_pm_report(pm_job_id, pm_report_id))
+    return pm_report
+
+
+@profiler.trace
+def create_pm_threshold(request, body):
+    LOG.debug("create_pm_threshold(): body=%s", body)
+    pm_threshold = (tackerclient(request, api_version="2")
+                    .create_vnf_pm_threshold(body=body))
+    return pm_threshold
+
+
+@profiler.trace
+def list_pm_thresholds(request, **params):
+    LOG.debug("list_pm_thresholds(): params=%s", params)
+    pm_thresholds = (tackerclient(request, api_version="2")
+                     .list_vnf_pm_thresholds(**params)
+                     .get('vnf_pm_thresholds'))
+    return pm_thresholds
+
+
+@profiler.trace
+def get_pm_threshold(request, pm_threshold_id):
+    LOG.debug("get_pm_threshold(): pm_threshold_id=%s", pm_threshold_id)
+    pm_threshold = (tackerclient(request, api_version="2")
+                    .show_vnf_pm_threshold(pm_threshold_id))
+    return pm_threshold
+
+
+@profiler.trace
+def update_pm_threshold(request, pm_threshold_id, body):
+    LOG.debug("update_pm_threshold(): pm_threshold_id=%s, body=%s",
+              pm_threshold_id, body)
+    updated_values = (tackerclient(request, api_version="2")
+                      .update_vnf_pm_threshold(pm_threshold_id, body=body))
+    return updated_values
+
+
+@profiler.trace
+def delete_pm_threshold(request, pm_threshold_id):
+    LOG.debug("delete_pm_threshold(): pm_threshold_id=%s", pm_threshold_id)
+    result = (tackerclient(request, api_version="2")
+              .delete_vnf_pm_threshold(pm_threshold_id))
+    return result

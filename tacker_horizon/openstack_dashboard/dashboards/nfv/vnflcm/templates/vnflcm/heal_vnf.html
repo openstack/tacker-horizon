@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans "Heal VNF" %}{% endblock %}
+
+{% block page_header %}
+  {% include "horizon/common/_page_header.html" with title=_("Heal VNF") %}
+{% endblock page_header %}
+
+{% block main %}
+    {% include 'nfv/vnflcm/_heal_vnf.html' %}
+{% endblock %}

@@ -20,21 +20,46 @@ import horizon
 
 class Vnfmgroup(horizon.PanelGroup):
     slug = "nfvgroup"
-    name = _("VNF Management")
+    name = _("(Legacy)VNF Management")
     panels = ('vnfcatalog', 'vnfmanager',)
 
 
 class Nfvogroup(horizon.PanelGroup):
     slug = "nfvogroup"
-    name = _("NFV Orchestration")
+    name = _("(Legacy)NFV Orchestration")
     panels = ('vim', 'vnffgcatalog', 'vnffgmanager',
               'nscatalog', 'nsmanager')
+
+
+class Vnfpkggroup(horizon.PanelGroup):
+    slug = "vnfpkggroup"
+    name = _("VNF Packages v1")
+    panels = ('vnfpackages',)
+
+
+class Vnflcmgroup(horizon.PanelGroup):
+    slug = "vnflcmgroup"
+    name = _("VNF LCM v2")
+    panels = ('vnflcm', 'vnflcmopocc', 'lccnsubscription',)
+
+
+class Vnffmgroup(horizon.PanelGroup):
+    slug = "vnffmgroup"
+    name = _("VNF FM v1")
+    panels = ('vnffmalarm', 'vnffmsubscription',)
+
+
+class Vnfpmgroup(horizon.PanelGroup):
+    slug = "vnfpmgroup"
+    name = _("VNF PM v2")
+    panels = ('vnfpmjob', 'vnfpmthreshold',)
 
 
 class Nfv(horizon.Dashboard):
     name = _("NFV")
     slug = "nfv"
-    panels = (Vnfmgroup, Nfvogroup,)  # Add your panels here.
+    panels = (Vnfmgroup, Nfvogroup, Vnfpkggroup, Vnflcmgroup, Vnffmgroup,
+              Vnfpmgroup,)  # Add your panels here.
     default_panel = 'vnfcatalog'  # Specify the slug of the dashboard's
     # default panel.
 

@@ -1,0 +1,34 @@
+{% load i18n %}
+
+<div class="detail">
+  <dl class="dl-horizontal">
+    <dt>{% trans "Additional Artifacts" %}</dt>
+    <dd>{{ vnfpkg.additionalArtifacts }}</dd>
+    <dt>{% trans "Checksum" %}</dt>
+    <dd>{{ vnfpkg.checksum }}</dd>
+    <dt>{% trans "ID" %}</dt>
+    <dd>{{ vnfpkg.id }}</dd>
+    <dt>{% trans "Links" %}</dt>
+    <dd>{{ vnfpkg.links }}</dd>
+    <dt>{% trans "Onboarding State" %}</dt>
+    <dd>{{ vnfpkg.onboardingState }}</dd>
+    <dt>{% trans "Operational State" %}</dt>
+    <dd>{{ vnfpkg.operationalState }}</dd>
+    <dt>{% trans "Software Images" %}</dt>
+    <dd>{{ vnfpkg.softwareImages }}</dd>
+    <dt>{% trans "Usage State" %}</dt>
+    <dd>{{ vnfpkg.usageState }}</dd>
+    <dt>{% trans "User Defined Data" %}</dt>
+    <dd>{{ vnfpkg.userDefinedData }}</dd>
+    <dt>{% trans "VNF Product Name" %}</dt>
+    <dd>{{ vnfpkg.vnfProductName }}</dd>
+    <dt>{% trans "VNF Provider" %}</dt>
+    <dd>{{ vnfpkg.vnfProvider }}</dd>
+    <dt>{% trans "VNF Software Version" %}</dt>
+    <dd>{{ vnfpkg.vnfSoftwareVersion }}</dd>
+    <dt>{% trans "VNFD ID" %}</dt>
+    <dd>{{ vnfpkg.vnfdId }}</dd>
+    <dt>{% trans "VNFD Version" %}</dt>
+    <dd>{{ vnfpkg.vnfdVersion }}</dd>
+  </dl>
+</div>

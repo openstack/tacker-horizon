@@ -1,0 +1,20 @@
+{% load i18n %}
+
+<div class="detail">
+  <dl class="dl-horizontal">
+    <dt>{% trans "ID" %}</dt>
+    <dd>{{ pmthreshold.id }}</dd>
+    <dt>{% trans "Links" %}</dt>
+    <dd>{{ pmthreshold.links }}</dd>
+    <dt>{% trans "Callback Uri" %}</dt>
+    <dd>{{ pmthreshold.callback_uri }}</dd>
+    <dt>{% trans "Criteria" %}</dt>
+    <dd>{{ pmthreshold.criteria }}</dd>
+    <dt>{% trans "Object Instance ID" %}</dt>
+    <dd>{{ pmthreshold.object_instance_id }}</dd>
+    <dt>{% trans "Object Type" %}</dt>
+    <dd>{{ pmthreshold.object_type }}</dd>
+    <dt>{% trans "Sub Object Instance IDs" %}</dt>
+    <dd>{{ pmthreshold.sub_object_instance_ids }}</dd>
+  </dl>
+</div>
